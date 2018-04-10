@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fi"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PearsonKorrelaatioTehtava.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">StatMaster</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">PearsonKorrelaatioTehtava.java</span></div><h1>PearsonKorrelaatioTehtava.java</h1><pre class="source lang-java linenums">
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+
+/**
+ * Tämä luokka kuvaa tehtävää, jonka tarkoitus on laskea Pearsonin korrelaatio
+ * kerroin. Tehtävä koostuu useista osatehtävistä.
+ *
+ * @author Oskari Koskinen
+ */
+public class PearsonKorrelaatioTehtava {
+
+    String muuttujaX;
+    String muuttujaY;
+    String ohjeistus;
+    ArrayList&lt;Integer&gt; muuttujanXarvot;
+    ArrayList&lt;Integer&gt; muuttujanYarvot;
+    ArrayList&lt;OsaTehtava&gt; osaTehtavat;
+    PearsonKorrelaatio r;
+
+<span class="nc" id="L22">    public PearsonKorrelaatioTehtava() {</span>
+<span class="nc" id="L23">        this.muuttujaX = &quot;&quot;;</span>
+<span class="nc" id="L24">        this.muuttujaY = &quot;&quot;;</span>
+<span class="nc" id="L25">        this.ohjeistus = &quot;&quot;;</span>
+<span class="nc" id="L26">        this.muuttujanXarvot = new ArrayList();</span>
+<span class="nc" id="L27">        this.muuttujanYarvot = new ArrayList();</span>
+<span class="nc" id="L28">        this.osaTehtavat = new ArrayList();</span>
+<span class="nc" id="L29">        this.r = new PearsonKorrelaatio();</span>
+<span class="nc" id="L30">    }</span>
+
+    public void luoUusiTehtava() {
+<span class="nc" id="L33">        this.arvoMuuttujanXNimi();</span>
+<span class="nc" id="L34">        this.arvoMuuttujanYNimi();</span>
+<span class="nc" id="L35">        this.luoVektorit();</span>
+<span class="nc" id="L36">        this.setOhjeistus();</span>
+<span class="nc" id="L37">        this.r.laske(muuttujanXarvot, muuttujanYarvot);</span>
+<span class="nc" id="L38">        this.testiSuureenValinta();</span>
+<span class="nc" id="L39">        this.korrelaationLaskeminen();</span>
+<span class="nc" id="L40">        this.tSuureenLaskeminen();</span>
+<span class="nc" id="L41">        this.pArvonLaskeminen();</span>
+<span class="nc" id="L42">    }</span>
+
+    public void suorita() {
+        
+<span class="nc" id="L46">        System.out.println(this.ohjeistus); </span>
+<span class="nc" id="L47">        System.out.println(&quot;&quot;);</span>
+        
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        for (int i = 0; i &lt; osaTehtavat.size(); i++) {</span>
+<span class="nc" id="L50">            osaTehtavat.get(i).suorita();</span>
+        }
+        
+<span class="nc" id="L53">        System.out.println(&quot;&quot;);</span>
+<span class="nc" id="L54">        System.out.println(&quot;Tehtävä on nyt ratkaistu!&quot;);</span>
+<span class="nc" id="L55">        System.out.println(&quot;&quot;);</span>
+        
+<span class="nc" id="L57">    }</span>
+    
+    public void luoVektorit() {
+
+<span class="nc" id="L61">        Random random = new Random();</span>
+
+<span class="nc" id="L63">        int ylarajaX = (random.nextInt(10) + 1) * 10;</span>
+<span class="nc" id="L64">        int ylarajaY = (random.nextInt(10) + 1) * 10;</span>
+
+<span class="nc" id="L66">        int aineistonKoko = random.nextInt(21);</span>
+        
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        while (aineistonKoko &lt; 5) {</span>
+<span class="nc" id="L69">            aineistonKoko = random.nextInt(21);</span>
+        }
+
+<span class="nc" id="L72">        ArrayList&lt;Integer&gt; vektoriX = new ArrayList();</span>
+<span class="nc" id="L73">        ArrayList&lt;Integer&gt; vektoriY = new ArrayList();</span>
+
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        for (int j = 0; j &lt; aineistonKoko; j++) {</span>
+<span class="nc" id="L76">            int arvo1 = random.nextInt(ylarajaX);</span>
+<span class="nc" id="L77">            int arvo2 = random.nextInt(ylarajaY);</span>
+<span class="nc" id="L78">            vektoriX.add(arvo1);</span>
+<span class="nc" id="L79">            vektoriY.add(arvo2);</span>
+        }
+
+<span class="nc" id="L82">        this.muuttujanXarvot = vektoriX;</span>
+<span class="nc" id="L83">        this.muuttujanYarvot = vektoriY;</span>
+
+<span class="nc" id="L85">    }</span>
+
+    public void arvoMuuttujanXNimi() {
+
+<span class="nc" id="L89">        String[] muuttujat = new String[]{&quot;masennus&quot;,</span>
+            &quot;ahdistus&quot;, &quot;ADHD&quot;, &quot;arkisujuvuus&quot;, &quot;toverisuosio&quot;,
+            &quot;kiintymyssuhteen turvallisuus&quot;, &quot;neuroottisuus&quot;, &quot;sovinnollisuus&quot;,
+            &quot;avoimuus uusille kokemuksille&quot;, &quot;tunnollisuus&quot;,
+            &quot;autoritaarinen persoonallisuus&quot;, &quot;luotettavuus&quot;,
+            &quot;työstressi&quot;, &quot;älykkyysosamäärä&quot;, &quot;työmuisti&quot;};
+
+<span class="nc" id="L96">        Random random = new Random();</span>
+<span class="nc" id="L97">        int x = random.nextInt(muuttujat.length);</span>
+<span class="nc" id="L98">        this.muuttujaX = muuttujat[x];</span>
+<span class="nc" id="L99">    }</span>
+
+    public void arvoMuuttujanYNimi() {
+
+<span class="nc" id="L103">        String[] muuttujat = new String[]{&quot;masennus&quot;,</span>
+            &quot;ahdistus&quot;, &quot;ADHD&quot;, &quot;arkisujuvuus&quot;, &quot;toverisuosio&quot;,
+            &quot;kiintymyssuhteen turvallisuus&quot;, &quot;neuroottisuus&quot;, &quot;sovinnollisuus&quot;,
+            &quot;avoimuus uusille kokemuksille&quot;, &quot;tunnollisuus&quot;,
+            &quot;autoritaarinen persoonallisuus&quot;, &quot;luotettavuus&quot;,
+            &quot;työstressi&quot;, &quot;älykkyysosamäärä&quot;, &quot;työmuisti&quot;};
+
+        while (true) {
+<span class="nc" id="L111">            Random random = new Random();</span>
+<span class="nc" id="L112">            int x = random.nextInt(muuttujat.length);</span>
+<span class="nc" id="L113">            String y = muuttujat[x];</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">            if (!y.equals(this.muuttujaX)) {</span>
+<span class="nc" id="L115">                this.muuttujaY = y;</span>
+<span class="nc" id="L116">                break;</span>
+            }
+<span class="nc" id="L118">        }</span>
+
+<span class="nc" id="L120">    }</span>
+
+    public String vektoriMerkkiJonoksi(ArrayList&lt;Integer&gt; vektori) {
+<span class="nc" id="L123">        String jono = &quot;&quot;;</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        for (int i = 0; i &lt; vektori.size(); i++) {</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">            if (i &lt; vektori.size() - 1) {</span>
+<span class="nc" id="L126">                jono = jono + vektori.get(i) + &quot;, &quot;;</span>
+            } else {
+<span class="nc" id="L128">                jono = jono + vektori.get(i);</span>
+            }
+        }
+<span class="nc" id="L131">        return jono;</span>
+    }
+
+    public void setOhjeistus() {
+
+<span class="nc" id="L136">        String ohje1 = &quot;Selvitä kahden muuttujan välisen lineaarisen yhteyden vahvuus.&quot;;</span>
+<span class="nc" id="L137">        String ohje2 = &quot;Muuttujat ovat &quot; + this.muuttujaX + &quot; ja &quot; + this.muuttujaY + &quot;.&quot;;</span>
+
+<span class="nc" id="L139">        String ohje3 = &quot;Voit olettaa, että molemmat muuttujat ovat vähintään &quot;</span>
+<span class="nc" id="L140">                + System.lineSeparator()</span>
+                + &quot;välimatka-asteikollisia ja noudattavat likimain normaalijakaumaa.&quot;;
+
+<span class="nc" id="L143">        String ohje4 = &quot;Muuttujalla &quot; + this.muuttujaX + &quot; on seuraavat arvot:&quot;</span>
+<span class="nc" id="L144">                + System.lineSeparator() + this.vektoriMerkkiJonoksi(muuttujanXarvot);</span>
+
+<span class="nc" id="L146">        String ohje5 = &quot;Muuttujalla &quot; + this.muuttujaY + &quot; on seuraavat arvot:&quot;</span>
+<span class="nc" id="L147">                + System.lineSeparator() + this.vektoriMerkkiJonoksi(muuttujanYarvot);</span>
+
+<span class="nc" id="L149">        String ohje = ohje1 + System.lineSeparator()</span>
+<span class="nc" id="L150">                + ohje2 + System.lineSeparator()</span>
+<span class="nc" id="L151">                + ohje3 + System.lineSeparator()</span>
+<span class="nc" id="L152">                + ohje4 + System.lineSeparator()</span>
+<span class="nc" id="L153">                + ohje5 + System.lineSeparator();</span>
+
+<span class="nc" id="L155">        this.ohjeistus = ohje;</span>
+
+<span class="nc" id="L157">    }</span>
+
+    public void testiSuureenValinta() {
+
+<span class="nc" id="L161">        ArrayList&lt;String&gt; testit = new ArrayList();</span>
+
+<span class="nc" id="L163">        String[] testeja = new String[]{&quot;Riippumattomien otosten t-testi&quot;,</span>
+            &quot;Verrannolisten parien t-testi&quot;, &quot;Khiin neliön riippumattomuustesti&quot;,
+            &quot;Pearsonin korrelaatio&quot;, &quot;Spearmanin korrelaatio&quot;, &quot;Yhden otoksen t-testi&quot;,
+            &quot;Khiin neliön yhteensopivuustesti&quot;};
+
+<span class="nc" id="L168">        Collections.addAll(testit, testeja);</span>
+<span class="nc" id="L169">        Collections.shuffle(testit);</span>
+
+<span class="nc" id="L171">        int vastaus = 1;</span>
+
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        for (int i = 0; i &lt; testit.size(); i++) {</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">            if (testit.get(i).equals(&quot;Pearsonin korrelaatio&quot;)) {</span>
+<span class="nc" id="L175">                vastaus = vastaus + i;</span>
+            }
+        }
+
+<span class="nc" id="L179">        String ohje = &quot;Valitse testisuure:&quot; + System.lineSeparator();</span>
+
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        for (int i = 0; i &lt; testit.size(); i++) {</span>
+<span class="nc" id="L182">            ohje = ohje + (i + 1) + &quot;. &quot; + testit.get(i) + System.lineSeparator();</span>
+        }
+
+<span class="nc" id="L185">        OsaTehtava tehtava = new OsaTehtava(vastaus, ohje);</span>
+<span class="nc" id="L186">        this.osaTehtavat.add(tehtava);</span>
+
+<span class="nc" id="L188">    }</span>
+
+    /**
+     * Lineaarisen yhteyden vahvuuden laskeminen kahden muuttujan välille.
+     */
+    public void korrelaationLaskeminen() {
+<span class="nc" id="L194">        String ohje = &quot;Laske lineaarisen yhteyden voimakkuus.&quot;;</span>
+<span class="nc" id="L195">        OsaTehtava tehtava = new OsaTehtava(this.r.cor, ohje);</span>
+<span class="nc" id="L196">        this.osaTehtavat.add(tehtava);</span>
+<span class="nc" id="L197">    }</span>
+
+    /**
+     * Korrelaation tilastollisen merkitsevyyden testaaminen.
+     */
+    public void tSuureenLaskeminen() {
+<span class="nc" id="L203">        String ohje = &quot;Laske korrelaatiolle t-arvo.&quot;;</span>
+<span class="nc" id="L204">        OsaTehtava tehtava = new OsaTehtava(this.r.t, ohje);</span>
+<span class="nc" id="L205">        this.osaTehtavat.add(tehtava);</span>
+<span class="nc" id="L206">    }</span>
+
+    /**
+     * Riskitason määrittäminen
+     */
+    public void pArvonLaskeminen() {
+<span class="nc" id="L212">        String ohje = &quot;Määritä testisuureen p-arvo&quot; + System.lineSeparator()</span>
+<span class="nc" id="L213">                + &quot;1. Tulos ei ole tilastollisesti merkisevä&quot; + System.lineSeparator()</span>
+<span class="nc" id="L214">                + &quot;2. p &lt;0.05&quot; + System.lineSeparator()</span>
+<span class="nc" id="L215">                + &quot;3. p &lt;0.01&quot; + System.lineSeparator()</span>
+<span class="nc" id="L216">                + &quot;4. p &lt;0.001&quot; + System.lineSeparator();</span>
+
+<span class="nc" id="L218">        int vastaus = 0;</span>
+        
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        if (this.r.pArvo.equals(&quot;ns&quot;)) {</span>
+<span class="nc" id="L221">            vastaus = 1;</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">        } else if (this.r.pArvo.equals(&quot;p &lt;0.05&quot;)) {</span>
+<span class="nc" id="L223">            vastaus = 2;</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">        } else if (this.r.pArvo.equals(&quot;p &lt;0.01&quot;)) {</span>
+<span class="nc" id="L225">            vastaus = 3;</span>
+        } else {
+<span class="nc" id="L227">            vastaus = 4;</span>
+        }
+        
+<span class="nc" id="L230">        OsaTehtava tehtava = new OsaTehtava(vastaus, ohje);</span>
+<span class="nc" id="L231">        this.osaTehtavat.add(tehtava);</span>
+<span class="nc" id="L232">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>
