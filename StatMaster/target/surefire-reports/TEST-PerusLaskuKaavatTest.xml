@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="PerusLaskuKaavatTest" time="0.005" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="PerusLaskuKaavatTest" time="0.018" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_131\jre\bin"/>
@@ -29,7 +29,7 @@
     <property name="maven.ext.class.path" value="C:\Program Files (x86)\tmcbeans\java\maven-nblib\netbeans-eventspy.jar"/>
     <property name="classworlds.conf" value="C:\Program Files (x86)\tmcbeans\java\maven\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\gs\gs9.21\lib\;C:\Program Files\gs\gs9.21\bin\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;;C:\Program Files\Microsoft VS Code\bin;C:\Users\Löllö\AppData\Roaming\npm;C:\Program Files\Heroku\bin;."/>
+    <property name="java.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\gs\gs9.21\lib\;C:\Program Files\gs\gs9.21\bin\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\IBM\SPSS\Statistics\25\JRE\bin;;C:\Program Files\Microsoft VS Code\bin;C:\Users\Löllö\AppData\Roaming\npm;C:\Program Files\Heroku\bin;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot Client Compiler"/>

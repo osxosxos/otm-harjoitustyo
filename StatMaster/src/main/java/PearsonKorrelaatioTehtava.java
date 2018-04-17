@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Tämä luokka kuvaa tehtävää, jonka tarkoitus on laskea Pearsonin korrelaatio
@@ -41,7 +42,7 @@ public class PearsonKorrelaatioTehtava {
         this.pArvonLaskeminen();
     }
 
-    public void suorita() {
+    public void suorita(Scanner scanner) {
         
         System.out.println(this.ohjeistus); 
         System.out.println("");

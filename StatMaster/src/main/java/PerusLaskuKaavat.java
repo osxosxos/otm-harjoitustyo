@@ -47,8 +47,7 @@ public class PerusLaskuKaavat {
     public double otosKeskihajonta(ArrayList<Integer> arvot) {
         double summa = nelioSumma(arvot);
         summa = summa/(arvot.size()-1);
-        pyoristaKahteenDesimaaliin(summa);
-        return Math.sqrt(summa);
+        return pyoristaKahteenDesimaaliin(Math.sqrt(summa));
     }
 
 }

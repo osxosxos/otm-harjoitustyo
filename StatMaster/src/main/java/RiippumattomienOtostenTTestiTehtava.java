@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -25,7 +26,7 @@ public class RiippumattomienOtostenTTestiTehtava {
     StudentinTTestiRiippumattomilleOtoksille t;
     Random random;
 
-    public RiippumattomienOtostenTTestiTehtava(String muuttujanNimi, String ryhmaXnimi, String ryhmaYnimi, String ohjeistus, String hypoteesi, ArrayList<Integer> ryhmanXarvot, ArrayList<Integer> ryhmanYarvot, ArrayList<OsaTehtava> osaTehtavat, PearsonKorrelaatio r) {
+    public RiippumattomienOtostenTTestiTehtava() {
         this.muuttujanNimi = "";
         this.ryhmienTyyppi = "";
         this.ryhmaXnimi = "";
@@ -63,6 +64,7 @@ public class RiippumattomienOtostenTTestiTehtava {
         } else {
             this.t.laske(ryhmanXarvot, ryhmanYarvot, 2);
         }
+        this.testiSuureenValinta();
         this.nollaHypoteesiTehtava();
         this.vaihtoehtoinenHypoteesiTehtava();
         this.ryhmanXKeskiarvoTehtava();
@@ -82,7 +84,6 @@ public class RiippumattomienOtostenTTestiTehtava {
             osaTehtavat.get(i).suorita();
         }
 
-        System.out.println("");
         System.out.println("Tehtävä on nyt ratkaistu!");
         System.out.println("");
     }
@@ -124,22 +125,32 @@ public class RiippumattomienOtostenTTestiTehtava {
     }
 
     public void setOhjeistus() {
+
         String ohje1 = "Tutkimuksen kohteena olivat "
-                + this.arvoRyhmanXnimi() + " ja " + this.ryhmaYnimi + ".";
+                + this.ryhmaXnimi + " ja " + this.ryhmaYnimi + "."
+                + System.lineSeparator()
+                + "Molemmista ryhmistä kerättiin edustavat otokset.";
+
         String ohje2 = "Tutkija oli kiinnostunut ryhmien välisestä erosta "
-                + " muuttujan " + this.muuttujanNimi + " suhteen";
+                + "muuttujan " + this.muuttujanNimi + " arvoissa."
+                + System.lineSeparator();
 
         String ohje3 = "Voit olettaa, että molempien ryhmien havainnot ovat vähintään "
                 + System.lineSeparator()
-                + "välimatka-asteikollisia ja noudattavat likimain normaalijakaumaa.";
+                + "välimatka-asteikollisia, hajonnat ovat molemmissa ryhmissä yhtäsuuret"
+                + System.lineSeparator()
+                + "ja havainnot noudattavat likimain normaalijakaumaa."
+                + System.lineSeparator();
 
-        String ohje4 = "Muuttujalla " + this.arvoMuuttujanNimi()
-                + " on seuraavat arvot ryhmässä " + this.arvoRyhmanXnimi() + "."
-                + System.lineSeparator() + this.vektoriMerkkiJonoksi(this.ryhmanXarvot);
+        String ohje4 = "Muuttujalla " + this.muuttujanNimi
+                + " on seuraavat arvot ryhmässä " + this.ryhmaXnimi + "."
+                + System.lineSeparator() + this.vektoriMerkkiJonoksi(this.ryhmanXarvot)
+                + System.lineSeparator();
 
-        String ohje5 = "ja ryhmässä " + this.arvoMuuttujanNimi()
-                + " seuraavat arvot ryhmässä " + this.arvoRyhmanYnimi() + "."
-                + System.lineSeparator() + this.vektoriMerkkiJonoksi(this.ryhmanYarvot);
+        String ohje5 = "Muuttujalla  " + this.muuttujanNimi
+                + " on seuraavat arvot ryhmässä " + this.ryhmaYnimi + "."
+                + System.lineSeparator() + this.vektoriMerkkiJonoksi(this.ryhmanYarvot)
+                + System.lineSeparator();
 
         String ohje6 = "";
 
@@ -159,7 +170,7 @@ public class RiippumattomienOtostenTTestiTehtava {
                 + ohje3 + System.lineSeparator()
                 + ohje4 + System.lineSeparator()
                 + ohje5 + System.lineSeparator()
-                + ohje6 + System.lineSeparator();
+                + ohje6;
 
         this.ohjeistus = ohje;
 
@@ -218,9 +229,11 @@ public class RiippumattomienOtostenTTestiTehtava {
                 }
             }
         } else if (this.ryhmienTyyppi.equals("supu")) {
-            int y = random.nextInt(this.sukupuolia.length);
-            if (!this.sukupuolia[y].equals(this.ryhmaXnimi)) {
-                return this.sukupuolia[y];
+            while (true) {
+                int y = random.nextInt(this.sukupuolia.length);
+                if (!this.sukupuolia[y].equals(this.ryhmaXnimi)) {
+                    return this.sukupuolia[y];
+                }
             }
         }
         return "";
@@ -249,7 +262,7 @@ public class RiippumattomienOtostenTTestiTehtava {
      */
     public ArrayList luoData(int mediaani) {
         ArrayList<Integer> data = new ArrayList();
-        int koko = random.nextInt(16) + 5;
+        int koko = random.nextInt(6) + 5;
 
         for (int i = 0; i < koko; i++) {
             int x = random.nextInt(101);
@@ -302,11 +315,12 @@ public class RiippumattomienOtostenTTestiTehtava {
         String vastaus1 = "1. Ryhmien keskiarvot eivät eroa toisistaan";
         String vastaus2 = "2. Ryhmän " + this.ryhmaXnimi
                 + " keskiarvo on suurempi kuin ryhmän " + this.ryhmaYnimi;
-        String vastaus3 = "2. Ryhmän " + this.ryhmaXnimi
+        String vastaus3 = "3. Ryhmän " + this.ryhmaXnimi
                 + " keskiarvo on pienempi kuin ryhmän " + this.ryhmaYnimi;
-        String vastaus4 = "Ryhmien keskiarvot eivät ole yhtäsuuret";
+        String vastaus4 = "4. Ryhmien keskiarvot eivät ole yhtäsuuret";
 
         String ohje = "Määritä tämän tehtävän nollahypoteesi."
+                + System.lineSeparator()
                 + vastaus1 + System.lineSeparator()
                 + vastaus2 + System.lineSeparator()
                 + vastaus3 + System.lineSeparator()
@@ -317,14 +331,16 @@ public class RiippumattomienOtostenTTestiTehtava {
     }
 
     public void vaihtoehtoinenHypoteesiTehtava() {
+
         String vastaus1 = "1. Ryhmien keskiarvot eivät eroa toisistaan";
         String vastaus2 = "2. Ryhmän " + this.ryhmaXnimi
                 + " keskiarvo on suurempi kuin ryhmän " + this.ryhmaYnimi;
-        String vastaus3 = "2. Ryhmän " + this.ryhmaXnimi
+        String vastaus3 = "3. Ryhmän " + this.ryhmaXnimi
                 + " keskiarvo on pienempi kuin ryhmän " + this.ryhmaYnimi;
-        String vastaus4 = "Ryhmien keskiarvot eivät ole yhtäsuuret";
+        String vastaus4 = "4. Ryhmien keskiarvot eivät ole yhtäsuuret";
 
-        String ohje = "Määritä tämän tehtävän nollahypoteesi."
+        String ohje = "Määritä tämän tehtävän vastahypoteesi."
+                + System.lineSeparator()
                 + vastaus1 + System.lineSeparator()
                 + vastaus2 + System.lineSeparator()
                 + vastaus3 + System.lineSeparator()
@@ -334,7 +350,7 @@ public class RiippumattomienOtostenTTestiTehtava {
 
         if (this.hypoteesi.equals("X>Y")) {
             vastaus = 2;
-        } else if (this.hypoteesi.equals("X>Y")) {
+        } else if (this.hypoteesi.equals("X<Y")) {
             vastaus = 3;
         } else if (this.hypoteesi.equals("X=/=Y")) {
             vastaus = 4;
@@ -344,6 +360,37 @@ public class RiippumattomienOtostenTTestiTehtava {
         osaTehtavat.add(tehtava);
     }
 
+    public void testiSuureenValinta() {
+
+        ArrayList<String> testit = new ArrayList();
+
+        String[] testeja = new String[]{"Riippumattomien otosten t-testi",
+            "Verrannolisten parien t-testi", "Khiin neliön riippumattomuustesti",
+            "Pearsonin korrelaatio", "Spearmanin korrelaatio", "Yhden otoksen t-testi",
+            "Khiin neliön yhteensopivuustesti"};
+
+        Collections.addAll(testit, testeja);
+        Collections.shuffle(testit);
+
+        int vastaus = 1;
+
+        for (int i = 0; i < testit.size(); i++) {
+            if (testit.get(i).equals("Riippumattomien otosten t-testi")) {
+                vastaus = vastaus + i;
+            }
+        }
+
+        String ohje = "Valitse testisuure:" + System.lineSeparator();
+
+        for (int i = 0; i < testit.size(); i++) {
+            ohje = ohje + (i + 1) + ". " + testit.get(i) + System.lineSeparator();
+        }
+
+        OsaTehtava tehtava = new OsaTehtava(vastaus, ohje);
+        this.osaTehtavat.add(tehtava);
+
+    }
+    
     public void ryhmanXKeskiarvoTehtava() {
         String ohje = "Laske ryhmän " + this.ryhmaXnimi + " keskiarvo.";
         OsaTehtava tehtava = new OsaTehtava(this.t.kaRyhmaX, ohje);
@@ -405,6 +452,10 @@ public class RiippumattomienOtostenTTestiTehtava {
                 vastaus = 4;
             }
         }
+
+        OsaTehtava tehtava = new OsaTehtava(vastaus, ohje);
+        osaTehtavat.add(tehtava);
+
     }
 
     public String vektoriMerkkiJonoksi(ArrayList<Integer> vektori) {

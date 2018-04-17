@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 /**
  * Luokka, jolla lasketaan riippumattomien otosten t-testi. Menetelmän on
- * kehittänyt Willian "student" Gosset
+ * kehittänyt Willian "student" Gosset.
  *
  * @author Oskari Koskinen
  */
@@ -73,16 +73,15 @@ public class StudentinTTestiRiippumattomilleOtoksille {
         double vYnY = Math.pow(this.khRyhmaY, 2) * (this.dataRyhmaY.size() - 1);
         double valiTulos = (vXnX + vYnY) / (this.ryhmienKoonSumma - 2);
         double tulos = Math.sqrt(valiTulos);
-        this.yhteisHajontaXY = tulos;
+        this.yhteisHajontaXY = kaavat.pyoristaKahteenDesimaaliin(tulos);
     }
 
     public void tTestiSuure() {
         double jakaja = 1.0 / this.dataRyhmaX.size() + 1.0 / this.dataRyhmaY.size();
-        System.out.println("jakaja on:" + jakaja);
         double jakajaJuuri = Math.sqrt(jakaja);
         double jakajaYhteisHajonta = jakajaJuuri * this.yhteisHajontaXY;
         double t = this.keskiArvojenErotus / jakajaYhteisHajonta;
-        this.t = t;
+        this.t = kaavat.pyoristaKahteenDesimaaliin(t);
     }
 
     public void pArvo() {
