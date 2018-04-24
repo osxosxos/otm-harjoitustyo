@@ -11,10 +11,12 @@ public class KayttoLiittyma {
 
     Random random;
     Scanner scanner;
+    Logiikka logiikka;
 
     public KayttoLiittyma() {
         this.random = new Random();
         this.scanner = new Scanner(System.in);
+        this.logiikka = new Logiikka();
     }
 
     public void kaynnista() {
@@ -25,30 +27,10 @@ public class KayttoLiittyma {
             System.out.print("Syötä komento tähän:");
             int komento = Integer.parseInt(scanner.nextLine());
             if (komento == 1) {
-                this.harjoittele();
+                this.logiikka.harjoittele();
             } else {
                 break;
             }
-        }
-    }
-
-    /**
-     * Arpoo satunnaisen tehtavän satunnaisesta aiheesta.
-     */
-    public void harjoittele() {
-        int luku = random.nextInt(3);
-        if (luku == 0) {
-            PearsonKorrelaatioTehtava tehtava = new PearsonKorrelaatioTehtava();
-            tehtava.luoUusiTehtava();
-            tehtava.suorita(scanner);
-        } else if (luku == 1) {
-            RiippumattomienOtostenTTestiTehtava tehtava = new RiippumattomienOtostenTTestiTehtava();
-            tehtava.luoUusiTehtava();
-            tehtava.suorita();
-        } else {
-            ParittaistenOtostenTTestiTehtava tehtava = new ParittaistenOtostenTTestiTehtava();
-            tehtava.luoUusiTehtava();
-            tehtava.suorita(scanner);
         }
     }
 

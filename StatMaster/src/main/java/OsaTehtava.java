@@ -2,49 +2,48 @@
 import java.util.Scanner;
 
 /**
- * Koska tilastollinen testaaminen ja todennäköisyyslaskut sisältävät useita eri
- * vaiheita, on järkevää jakaa jokainen tehtävä useampaan eri osatehtävään.
+ * Koska tilastollinen testaaminen ja todennäköisyyslaskenta sisältävät useita
+ * eri vaiheita, on järkevää jakaa jokainen tehtävä useampaan eri osatehtävään.
  * Tehtävä on suoritettu vasta sitten, kun sen jokainen osatehtävä on
- * suoritettu.
+ * suoritettu. Jokainen osatehtävä on yhden pisteen arvoinen. Yrityksiä on 
+ * yksi, jos se menee väärin, ohjelma antaa oikean vastauksen.
  *
  * @author Oskari Koskinen
  */
 public class OsaTehtava {
 
-    boolean suoritettu;
-    double vastaus;
+    int vastaus;
     String ohjeistus;
 
-    public OsaTehtava(double vastaus, String ohjeistus) {
-        this.suoritettu = false;
+    public OsaTehtava(int vastaus, String ohjeistus) {
         this.vastaus = vastaus;
         this.ohjeistus = ohjeistus;
     }
 
     /**
-     * Suoritetaan osatehtävä, jos menee oikein, suoritettu saa arvon true ja
-     * tehtävää ei enää esitetä käyttäjälle.
+     * Suoritetaan osatehtävä, jos vastaus on oikein, palautetaan yksi piste,
+     * jos vastaus on väärin, palautetaan nolla pistettä. 
+     *
+     * @param scanner Skanneri vastausten lukemiseksi.
+     * @return Palauttaa arvon yksi, jos tehtävä on oikein, muulloin nollan.
      */
-    public void suorita() {
-        
-        Scanner scanner = new Scanner(System.in);
-        
+    public int suorita(Scanner scanner) {
+
         System.out.println(ohjeistus);
-
-        while (true) {
-            System.out.print("Anna vastaus tähän:");
-            Double annettuVastaus = Double.parseDouble(scanner.nextLine().trim());
-            if (annettuVastaus == this.vastaus) {
-                System.out.println("Vastaus on oikein!");
-                System.out.println("");
-                break;                
-            } else {
-                System.out.println("Vastaus on väärin!");
-                System.out.println("Yritä uudelleen!");
-                System.out.println("");
-            }
+        System.out.print("Anna vastaus tähän:");
+        
+        int annettuVastaus = Integer.parseInt(scanner.nextLine().trim());
+        
+        if (annettuVastaus == this.vastaus) {
+            System.out.println("Vastaus on oikein!");
+            System.out.println("");
+            return 1;
+        } else {
+            System.out.println("Vastaus on väärin!");
+            System.out.println("Oikea vastausvaihtoehto oli: " + this.vastaus);
+            System.out.println("");
+            return 0;
         }
-
     }
 
 }

@@ -1,223 +1,168 @@
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Tämä luokka kuvaa tehtävää, jonka tarkoitus on laskea Pearsonin korrelaatio
- * kerroin. Tehtävä koostuu useista osatehtävistä.
+ * kerroin. Tehtävä koostuu useista osatehtävistä. Luokka on luokan tehtävä
+ * erikoistapaus.
  *
  * @author Oskari Koskinen
  */
-public class PearsonKorrelaatioTehtava {
+public class PearsonKorrelaatioTehtava extends Tehtava {
 
-    String muuttujaX;
-    String muuttujaY;
-    String ohjeistus;
+    int muuttujaX;
+    int muuttujaY;
     ArrayList<Integer> muuttujanXarvot;
     ArrayList<Integer> muuttujanYarvot;
-    ArrayList<OsaTehtava> osaTehtavat;
     PearsonKorrelaatio r;
 
     public PearsonKorrelaatioTehtava() {
-        this.muuttujaX = "";
-        this.muuttujaY = "";
-        this.ohjeistus = "";
+        super();
+        this.muuttujaX = 0;
+        this.muuttujaY = 0;
         this.muuttujanXarvot = new ArrayList();
         this.muuttujanYarvot = new ArrayList();
-        this.osaTehtavat = new ArrayList();
         this.r = new PearsonKorrelaatio();
     }
 
     public void luoUusiTehtava() {
-        this.arvoMuuttujanXNimi();
-        this.arvoMuuttujanYNimi();
-        this.luoVektorit();
-        this.setOhjeistus();
+        this.setMuuttujaX(this.arvoMuuttujaX());
+        this.setMuuttujaY(this.arvoMuuttujaY());
+        this.setMuuttujanXarvot(this.luoAineisto());
+        this.setMuuttujanYarvot(this.luoAineisto());
+        super.setOhje(this.luoOhjeistus());
         this.r.laske(muuttujanXarvot, muuttujanYarvot);
-        this.testiSuureenValinta();
-        this.korrelaationLaskeminen();
-        this.tSuureenLaskeminen();
+        String ohje1 = "Laske Pearsonin korrelaatiokertoimen arvo.";
+        String ohje2 = "Laske Pearsonin korrelaatiokertoimelle t-arvo.";
+        super.testinValintaTehtava("Pearsonin korrelaatio");
+        super.laskemisTehtava(this.r.cor, 1, ohje1);
+        System.out.println("this.r = " + this.r.cor);
+        this.nollaHypoteesiTehtava();
+        this.vastaHypoteesiTehtava();
+        super.laskemisTehtava(this.r.t, 1, ohje2);
         this.pArvonLaskeminen();
     }
 
-    public void suorita(Scanner scanner) {
-        
-        System.out.println(this.ohjeistus); 
-        System.out.println("");
-        
-        for (int i = 0; i < osaTehtavat.size(); i++) {
-            osaTehtavat.get(i).suorita();
-        }
-        
-        System.out.println("");
-        System.out.println("Tehtävä on nyt ratkaistu!");
-        System.out.println("");
-        
-    }
-    
-    public void luoVektorit() {
-
-        Random random = new Random();
-
-        int ylarajaX = (random.nextInt(10) + 1) * 10;
-        int ylarajaY = (random.nextInt(10) + 1) * 10;
-
-        int aineistonKoko = random.nextInt(21);
-        
-        while (aineistonKoko < 5) {
-            aineistonKoko = random.nextInt(21);
-        }
-
-        ArrayList<Integer> vektoriX = new ArrayList();
-        ArrayList<Integer> vektoriY = new ArrayList();
-
-        for (int j = 0; j < aineistonKoko; j++) {
-            int arvo1 = random.nextInt(ylarajaX);
-            int arvo2 = random.nextInt(ylarajaY);
-            vektoriX.add(arvo1);
-            vektoriY.add(arvo2);
-        }
-
-        this.muuttujanXarvot = vektoriX;
-        this.muuttujanYarvot = vektoriY;
-
+    public void setMuuttujaX(int muuttujaX) {
+        this.muuttujaX = muuttujaX;
     }
 
-    public void arvoMuuttujanXNimi() {
-
-        String[] muuttujat = new String[]{"masennus",
-            "ahdistus", "ADHD", "arkisujuvuus", "toverisuosio",
-            "kiintymyssuhteen turvallisuus", "neuroottisuus", "sovinnollisuus",
-            "avoimuus uusille kokemuksille", "tunnollisuus",
-            "autoritaarinen persoonallisuus", "luotettavuus",
-            "työstressi", "älykkyysosamäärä", "työmuisti"};
-
-        Random random = new Random();
-        int x = random.nextInt(muuttujat.length);
-        this.muuttujaX = muuttujat[x];
+    public void setMuuttujaY(int muuttujaY) {
+        this.muuttujaY = muuttujaY;
     }
 
-    public void arvoMuuttujanYNimi() {
+    public void setMuuttujanXarvot(ArrayList<Integer> muuttujanXarvot) {
+        this.muuttujanXarvot = muuttujanXarvot;
+    }
 
-        String[] muuttujat = new String[]{"masennus",
-            "ahdistus", "ADHD", "arkisujuvuus", "toverisuosio",
-            "kiintymyssuhteen turvallisuus", "neuroottisuus", "sovinnollisuus",
-            "avoimuus uusille kokemuksille", "tunnollisuus",
-            "autoritaarinen persoonallisuus", "luotettavuus",
-            "työstressi", "älykkyysosamäärä", "työmuisti"};
+    public void setMuuttujanYarvot(ArrayList<Integer> muuttujanYarvot) {
+        this.muuttujanYarvot = muuttujanYarvot;
+    }
 
+    public ArrayList luoAineisto() {
+        int mediaani = (super.random.nextInt(10) + 1) * 10;
+        int koko;
+
+        if (this.muuttujanXarvot.size() != 0) {
+            koko = this.muuttujanXarvot.size();
+        } else {
+            koko = super.random.nextInt(21);
+        }
+
+        while (koko < 5) {
+            koko = random.nextInt(21);
+        }
+
+        ArrayList<Integer> vektori = super.luoData(mediaani, koko);
+        return vektori;
+    }
+
+    public int arvoMuuttujaX() {
+        int x = super.random.nextInt(super.aiheetPerusmuoto().length);
+        return x;
+    }
+
+    public int arvoMuuttujaY() {
+        int y = super.random.nextInt(super.aiheetPerusmuoto().length);
         while (true) {
-            Random random = new Random();
-            int x = random.nextInt(muuttujat.length);
-            String y = muuttujat[x];
-            if (!y.equals(this.muuttujaX)) {
-                this.muuttujaY = y;
+            y = super.random.nextInt(super.aiheetPerusmuoto().length);
+            if (y != this.muuttujaX) {
                 break;
             }
         }
-
+        return y;
     }
 
-    public String vektoriMerkkiJonoksi(ArrayList<Integer> vektori) {
-        String jono = "";
-        for (int i = 0; i < vektori.size(); i++) {
-            if (i < vektori.size() - 1) {
-                jono = jono + vektori.get(i) + ", ";
-            } else {
-                jono = jono + vektori.get(i);
-            }
-        }
-        return jono;
+    /**
+     * Luo ohjeen korrelaation laskemistehtävälle.
+     *
+     * @return
+     */
+    public String luoOhjeistus() {
+
+        String tehtavanOhje = "Tutkija on kiinnostunut ";
+        tehtavanOhje = tehtavanOhje + super.aiheetTaivutus2()[this.muuttujaX];
+        tehtavanOhje = tehtavanOhje + System.lineSeparator();
+        tehtavanOhje = tehtavanOhje + "ja ";
+        tehtavanOhje = tehtavanOhje + super.aiheetTaivutus2()[this.muuttujaY];
+        tehtavanOhje = tehtavanOhje + System.lineSeparator();
+        tehtavanOhje = tehtavanOhje + "välisen lineaarisen yhteyden voimakkuudesta.";
+        tehtavanOhje = tehtavanOhje + System.lineSeparator();
+        tehtavanOhje = tehtavanOhje + System.lineSeparator();
+        tehtavanOhje = tehtavanOhje + "Muuttujalla " + super.aiheetPerusmuoto()[this.muuttujaX];
+        tehtavanOhje = tehtavanOhje + " on seuraavat arvot:";
+        tehtavanOhje = tehtavanOhje + System.lineSeparator();
+        tehtavanOhje = tehtavanOhje + super.vektoriMerkkiJonoksi(this.muuttujanXarvot);
+        tehtavanOhje = tehtavanOhje + System.lineSeparator();
+        tehtavanOhje = tehtavanOhje + "Muuttujalla " + super.aiheetPerusmuoto()[this.muuttujaY];
+        tehtavanOhje = tehtavanOhje + " on seuraavat arvot:";
+        tehtavanOhje = tehtavanOhje + System.lineSeparator();
+        tehtavanOhje = tehtavanOhje + super.vektoriMerkkiJonoksi(this.muuttujanYarvot);
+        tehtavanOhje = tehtavanOhje + System.lineSeparator();
+        tehtavanOhje = tehtavanOhje + System.lineSeparator();
+        tehtavanOhje = tehtavanOhje + "Tutki lineaarisen yhteyden vahvuutta.";
+
+        return tehtavanOhje;
     }
 
-    public void setOhjeistus() {
+    public void nollaHypoteesiTehtava() {
+        String vastaus1 = "A = 1: Muuttujien välillä ei ole lineaarista yhteyttä.";
+        String vastaus2 = "B = 2: Muuttujien välillä on lineaarinen yhteys.";
 
-        String ohje1 = "Selvitä kahden muuttujan välisen lineaarisen yhteyden vahvuus.";
-        String ohje2 = "Muuttujat ovat " + this.muuttujaX + " ja " + this.muuttujaY + ".";
-
-        String ohje3 = "Voit olettaa, että molemmat muuttujat ovat vähintään "
+        String tehtavanOhje = "Määritä tämän tehtävän nollahypoteesi."
                 + System.lineSeparator()
-                + "välimatka-asteikollisia ja noudattavat likimain normaalijakaumaa.";
+                + vastaus1 + System.lineSeparator()
+                + vastaus2 + System.lineSeparator();
 
-        String ohje4 = "Muuttujalla " + this.muuttujaX + " on seuraavat arvot:"
-                + System.lineSeparator() + this.vektoriMerkkiJonoksi(muuttujanXarvot);
-
-        String ohje5 = "Muuttujalla " + this.muuttujaY + " on seuraavat arvot:"
-                + System.lineSeparator() + this.vektoriMerkkiJonoksi(muuttujanYarvot);
-
-        String ohje = ohje1 + System.lineSeparator()
-                + ohje2 + System.lineSeparator()
-                + ohje3 + System.lineSeparator()
-                + ohje4 + System.lineSeparator()
-                + ohje5 + System.lineSeparator();
-
-        this.ohjeistus = ohje;
-
+        OsaTehtava tehtava = new OsaTehtava(1, tehtavanOhje);
+        super.osaTehtavat.add(tehtava);
     }
 
-    public void testiSuureenValinta() {
+    public void vastaHypoteesiTehtava() {
+        String vastaus1 = "A = 1: Muuttujien välillä ei ole lineaarista yhteyttä.";
+        String vastaus2 = "B = 2: Muuttujien välillä on lineaarinen yhteys.";
 
-        ArrayList<String> testit = new ArrayList();
+        String tehtavanOhje = "Määritä tämän tehtävän vastahypoteesi."
+                + System.lineSeparator()
+                + vastaus1 + System.lineSeparator()
+                + vastaus2 + System.lineSeparator();
 
-        String[] testeja = new String[]{"Riippumattomien otosten t-testi",
-            "Verrannolisten parien t-testi", "Khiin neliön riippumattomuustesti",
-            "Pearsonin korrelaatio", "Spearmanin korrelaatio", "Yhden otoksen t-testi",
-            "Khiin neliön yhteensopivuustesti"};
-
-        Collections.addAll(testit, testeja);
-        Collections.shuffle(testit);
-
-        int vastaus = 1;
-
-        for (int i = 0; i < testit.size(); i++) {
-            if (testit.get(i).equals("Pearsonin korrelaatio")) {
-                vastaus = vastaus + i;
-            }
-        }
-
-        String ohje = "Valitse testisuure:" + System.lineSeparator();
-
-        for (int i = 0; i < testit.size(); i++) {
-            ohje = ohje + (i + 1) + ". " + testit.get(i) + System.lineSeparator();
-        }
-
-        OsaTehtava tehtava = new OsaTehtava(vastaus, ohje);
-        this.osaTehtavat.add(tehtava);
-
+        OsaTehtava tehtava = new OsaTehtava(2, tehtavanOhje);
+        super.osaTehtavat.add(tehtava);
     }
 
     /**
-     * Lineaarisen yhteyden vahvuuden laskeminen kahden muuttujan välille.
-     */
-    public void korrelaationLaskeminen() {
-        String ohje = "Laske lineaarisen yhteyden voimakkuus.";
-        OsaTehtava tehtava = new OsaTehtava(this.r.cor, ohje);
-        this.osaTehtavat.add(tehtava);
-    }
-
-    /**
-     * Korrelaation tilastollisen merkitsevyyden testaaminen.
-     */
-    public void tSuureenLaskeminen() {
-        String ohje = "Laske korrelaatiolle t-arvo.";
-        OsaTehtava tehtava = new OsaTehtava(this.r.t, ohje);
-        this.osaTehtavat.add(tehtava);
-    }
-
-    /**
-     * Riskitason määrittäminen
+     * Riskitason määrittäminen korrelaatiosta lasketulle p-arvolle.
      */
     public void pArvonLaskeminen() {
-        String ohje = "Määritä testisuureen p-arvo" + System.lineSeparator()
+        String tehtavanOhje = "Määritä testisuureen p-arvo" + System.lineSeparator()
                 + "1. Tulos ei ole tilastollisesti merkisevä" + System.lineSeparator()
                 + "2. p <0.05" + System.lineSeparator()
                 + "3. p <0.01" + System.lineSeparator()
                 + "4. p <0.001" + System.lineSeparator();
 
         int vastaus = 0;
-        
+
         if (this.r.pArvo.equals("ns")) {
             vastaus = 1;
         } else if (this.r.pArvo.equals("p <0.05")) {
@@ -227,9 +172,9 @@ public class PearsonKorrelaatioTehtava {
         } else {
             vastaus = 4;
         }
-        
-        OsaTehtava tehtava = new OsaTehtava(vastaus, ohje);
-        this.osaTehtavat.add(tehtava);
+
+        OsaTehtava tehtava = new OsaTehtava(vastaus, tehtavanOhje);
+        super.osaTehtavat.add(tehtava);
     }
 
 }
