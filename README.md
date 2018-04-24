@@ -6,6 +6,9 @@ Jacoco raportin pystyy kuitenkin generoimaan run maven - valikon kautta, jossa o
 Huomautus 24.4: Releasea ei ole tehty, koska ohjelma valitettavasti ei ole vielä valmis. Osa määrittelydokumentin toiminnallisuudesta puuttuu edelleen. 
 
 Viikon 5 tuntikirjanpito
+
 21.4: Uusien tehtävien kirjoittamista (4 tuntia).
+
 23.4: Uusien tehtävien ja menetelmien kirjoittamista (6 tuntia).
+
 24.4: Koodin refaktorointia ja toistetun koodin eliminointia (8 tuntia). Sekvenssi ja luokkakaavion piirtäminen (1 tunti).
