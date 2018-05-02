@@ -1,4 +1,5 @@
 
+import TilastollisetTestit.PearsonKorrelaatio;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,11 +47,6 @@ public class PearsonKorrelaatioTest {
     @Test
     public void pArvo() {
         assertEquals("ns", r.pArvo);
-    }
-    
-    @Test 
-    public void  tulkinta() {
-        assertEquals("Muuttujien välillä ei ole tilastollisesti merkittävää yhteyttä", r.tulkinta);
     }
 
 }

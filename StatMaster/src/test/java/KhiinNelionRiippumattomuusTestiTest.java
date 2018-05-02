@@ -1,4 +1,5 @@
 
+import TilastollisetTestit.KhiinNelionRiippumattomuusTesti;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,7 +8,7 @@ import static org.junit.Assert.*;
 /**
  * Testiluokka khiin neliön riippumattomuustestille.
  *
- * @author Löllö Oskari Koskinen
+ * @author Oskari Koskinen
  */
 public class KhiinNelionRiippumattomuusTestiTest {
 
@@ -87,10 +88,5 @@ public class KhiinNelionRiippumattomuusTestiTest {
     public void pArvo() {
         assertEquals("ns",khii1.pArvo);
     }
-     
-    @Test
-    public void tulkinta() {
-        assertEquals("Muuttujien välillä ei ole tilastollista yhteyttä.",khii1.tulkinta);
-    }
-    
+         
 }

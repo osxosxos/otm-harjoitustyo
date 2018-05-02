@@ -1,4 +1,5 @@
 
+import TilastollisetTestit.StudentinTTestiRiippumattomilleOtoksille;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
