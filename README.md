@@ -8,7 +8,7 @@ Jacoco raportin pystyy kuitenkin generoimaan run maven - valikon kautta, jossa o
 Huomautus 24.4: Releasea ei ole tehty, koska ohjelma valitettavasti ei ole vielä valmis. Osa määrittelydokumentin toiminnallisuudesta puuttuu edelleen. 
 
 ## Releaset
-[Viikko6](https://github.com/osxosxos/otm-harjoitustyo/releases/tag/viikko5)
+[Viikko 6](https://github.com/osxosxos/otm-harjoitustyo/releases/tag/viikko5)
 
 ## Dokumentaatio
 
