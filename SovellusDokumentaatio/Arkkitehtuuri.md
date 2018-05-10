@@ -4,7 +4,7 @@ Ohjelman oleellista toiminnallisuutta ovat tehtävät, joita käyttäjä ratkais
 
 Jokaiseen tehtävään liittyy uniikki tilastotieteen ongelma ja ratkaisu. Tehtävän aihe voi olla esimerkiksi Pearsonin korrelaation laskeminen kahden muuttujan arvojen välille. Tällöin Tehtävä Koostuu useasta OsaTehtävä -luokan objektista ja PearsonKorrelaatio -objektista, jossa on oikeat vastaukset ongelmaan. Alla kuvaus tehtävästä jonka aiheena on Pearsonin korrelaation laskeminen.
 
-!(https://yuml.me/4689fa04.jpg)
+![alt text](https://yuml.me/4689fa04.jpg)
 
 ## Käyttöliittymä
 ## Sovelluslogiikka
