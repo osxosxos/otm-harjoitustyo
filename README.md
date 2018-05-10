@@ -12,5 +12,7 @@ Huomautus 24.4: Releasea ei ole tehty, koska ohjelma valitettavasti ei ole viel�
 
 ## Dokumentaatio
 [Arkkitehtuurikuvaus](https://github.com/osxosxos/otm-harjoitustyo/blob/master/SovellusDokumentaatio/Arkkitehtuuri.md)
+
 [Vaatimusmäärittely](https://github.com/osxosxos/otm-harjoitustyo/blob/master/SovellusDokumentaatio/Vaatimusmaarittely.pdf)
+
 [Työaikakirjanpito](https://github.com/osxosxos/otm-harjoitustyo/blob/master/SovellusDokumentaatio/Ty%C3%B6aikakirjanpito.md)
