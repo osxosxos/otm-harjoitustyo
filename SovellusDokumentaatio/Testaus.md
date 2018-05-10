@@ -2,9 +2,7 @@
 
 Ohjelmaa on testattu sekä automatisoiduin testein JUnitilla että ohjelmaa käyttämällä. 
 
-## Yksikkö- ja integraatiotestaus
-
-### Yksikkötestaus
+## Yksikkötestaus
 
 ### Tilastolliset testit
 
