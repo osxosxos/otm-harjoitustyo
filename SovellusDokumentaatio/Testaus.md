@@ -1,4 +1,4 @@
-# Testausdokumentti### Tilastolliset testit
+# Testausdokumentti
 
 Ohjelmaa on testattu sekä automatisoiduin testein JUnitilla että ohjelmaa käyttämällä. 
 
