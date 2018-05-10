@@ -13,4 +13,34 @@ Ohjelman käyttöliittymä on toteutettu yhtenä Scene -objektina, jossa on Grip
 Kun ohjelma avataan, ratkaistavaa tehtävää ei vielä ole. Kun Uusi tehtävä nappia painetaan ensimmäisen kerran, uusi tehtävä ilmestyy. Kun uusi tehtävä on luotu, ilmestyy sen ohjeen alle valikko ensimmäisen osatehtävän ratkaisemiseksi, sekä nappi, jolla tehtävässä voi siirtyä eteenpäin. Jokaiseen osatehtävään voi vastava vain kerran yhden vaihtoehdoista (1,2,3 ja 4), jonka jälkeen sovellus ilmoittaa onko vastaus oikein vai väärin. Siirry seuraavaan osatehtävään -napin painaminen pyyhkii vanhan osatehtävän pois GridPanesta ja liittää tehtävän seuraavan osatehtävän sen tilalle.
 
 ## Sovelluslogiikka
+
+Sovelluksen tarkoitus on luoda tilastotieteen tehtäviä eri aiheista.
+
+### Tehtävä
+
+Luokalla tehtävä on seuraavat attribuutit: 
+*String ohje
+*ArrayList<OsaTehtava> osaTehtava
+  
+Jokainen tehtävä koostuu siis useasta osatehtävästä, jotka ovat tilastotieteen ongelmien kohdalla usein seuraavat:
+*Oikean menetelmän valinta
+*Nollahypoteesin valinta
+*Vastahypoteesin valinta
+*Testisuureen laskeminen
+*Tilostollisen merkitsevyyden määrittäminen
+
+### OsaTehtävä
+
+Luokalla osatehtävä on seuraavat attribuutit:
+*String ohje
+*Integer vastaus
+
+Osatehtävä kuvaa yksittäistä tilastollisen testaamisen ongelmaa, esim. vastaypoteesin asettamista tai testisuureen laskemista. Osatehtävässä on ohje ja neljä vastausvaihtoehtoa, jotka on numeroitu 1,2,3 ja 4. Vaihtoehdot on sisällytetty ohjeeseen. Vastaus -attribuutti on näistä vaihtoehdoista oikea vastaus. Jokaisella osatehtävällä on suoritusmetodi, joka palauttaa arvon yksi, jos annettu vastaus vastaa vastaus -attribuuttia, muulloin nolla. 
+
+### Tehtävän suorittaminen
+
+Tehtävä suoritetaan vastaamalla jokaiseen osatehtävään ennaltamäärätyssä järjestyksessä.
+
 ## Ohjelman Rakenteeseen jääneet heikkoudet
+
+Erilaisissa Tehtävä -luokan erikoistapauksissa saattaa olla vielä liikaa lähes päällekäisiä metodeja, kuten esimerkiksi jokaisella eri tilastollista testiä käsittelevällä luokalla on erilliset osatehtävä generaattorit hypoteesienvalinta osatehtäville. Tehtävä -luokassa on myös jonkin verran apumetodeja, jotka olisi ehkä parempi sijoittaa muualle rakenteen selventämiseksi.
