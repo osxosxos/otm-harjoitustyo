@@ -10,6 +10,8 @@ Huomautus 24.4: Releasea ei ole tehty, koska ohjelma valitettavasti ei ole viel�
 ## Releaset
 [Viikko 6](https://github.com/osxosxos/otm-harjoitustyo/releases/tag/viikko5)
 
+[Lopullinen](https://github.com/osxosxos/otm-harjoitustyo/releases/tag/Lopullinen)
+
 ## Dokumentaatio
 
 [Käyttöohje](https://github.com/osxosxos/otm-harjoitustyo/blob/master/SovellusDokumentaatio/K%C3%A4ytt%C3%B6ohje.md)
@@ -21,3 +23,43 @@ Huomautus 24.4: Releasea ei ole tehty, koska ohjelma valitettavasti ei ole viel�
 [Työaikakirjanpito](https://github.com/osxosxos/otm-harjoitustyo/blob/master/SovellusDokumentaatio/Ty%C3%B6aikakirjanpito.md)
 
 [Testausdokumentti](https://github.com/osxosxos/otm-harjoitustyo/blob/master/SovellusDokumentaatio/Testaus.md)
+
+## Komentorivitoiminnot
+
+### Testaus
+
+Ohjelman yksikkötestit suoritetaan komennolla
+
+```
+mvn test
+```
+
+Jacoco-testikattavuusraportti luodaan komennolla
+
+```
+mvn jacoco:report
+```
+
+### Jari -tiedoston generointi
+
+Komento
+
+```
+mvn package
+```
+
+### JavaDoc
+
+JavaDoc generoidaan komennolla
+
+```
+mvn javadoc:javadoc
+```
+
+### Checkstyle
+
+CheckStyle generoidaan komennolla
+
+```
+ mvn jxr:jxr checkstyle:checkstyle
+```
