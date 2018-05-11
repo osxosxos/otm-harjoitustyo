@@ -40,9 +40,9 @@ Jacoco-testikattavuusraportti luodaan komennolla
 mvn jacoco:report
 ```
 
-### Jari -tiedoston generointi
+### Jar -tiedoston generointi
 
-Komento
+Suoritettava jar -tiedosto generoidaan komennolla
 
 ```
 mvn package
