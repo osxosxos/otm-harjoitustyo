@@ -1,4 +1,4 @@
-# Kayttöohje
+# Käyttöohje
 
 ## Sovelluksen lataaminen
 
@@ -6,7 +6,7 @@ Mene hakemaan ohjelma [täältä](https://github.com/osxosxos/otm-harjoitustyo/r
 
 ## Sovelluksen käyttäminen 
 
-Sovellus käynnistyy tyhjään näkymään, jossa on ohjeistus nappien käytölle.
+Sovellus käynnistyy lähes tyhjään näkymään, jossa on ohjeistus nappien käytölle.
 
 * Nappi UusiTehtävä luo uuden tehtävän
 
@@ -18,7 +18,7 @@ Uusi tehtävä luodaan UusiTehtävä nappia painamalla. Uusi tehtävä pyyhkii v
 
 ### Tehtävien ratkaisemien
 
-Jokainen sovelluksen tehtävä koostuu useista osatehtävistä. Jokaista osatehtävää saa yrittää vain kerran. Osatehtävien tehtävänanto on varsinaisen tehtävän annon alla, jossa näkyy kysymys ja sen neljä vastausvaihtoehtoa. Vastaa kysymykseen painalla yhtä napeista (1,2,3 ja 4). Kun yhtä napeista on painettu, ohjelma ilmoittaa onko vastaus oikein vai väärin ja napit katoavat. Tehtävässä pääsee eteenpäin painamalla vastausnappien alla olevaa seuraavaan tehtävään siirtävää nappia. Tehtävissä ei kuitenkaan voi palata taaksepäin, koska seuraavien osatehtävien vastaukset saattaisivat paljastaa edellisten ratkaisut. Siirry eteenpäin siis vasta sitten, kun olet varma vastauksestasi tai siitä, että haluat jättää osatehtävän väliin.
+Jokainen sovelluksen tehtävä koostuu useista osatehtävistä. Jokaista osatehtävää saa yrittää vain kerran. Osatehtävien tehtävänanto on varsinaisen tehtävän annon alla, jossa näkyy kysymys ja sen neljä vastausvaihtoehtoa. Vastaa kysymykseen painalla yhtä napeista (1,2,3 ja 4). Kun yhtä napeista on painettu, ohjelma ilmoittaa onko vastaus oikein vai väärin ja napit katoavat. Tehtävässä pääsee eteenpäin painamalla vastausnappien alla olevaa seuraavaan tehtävään siirtävää nappia. Tehtävissä ei kuitenkaan voi palata taaksepäin, koska seuraavien osatehtävien kysymykset saattaisivat paljastaa edellisten ratkaisut. Siirry eteenpäin siis vasta sitten, kun olet varma vastauksestasi tai siitä, että haluat jättää osatehtävän väliin.
 
 ### Sovelluksen sulkeminen
 
