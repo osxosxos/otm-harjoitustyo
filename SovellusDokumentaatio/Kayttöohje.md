@@ -2,7 +2,7 @@
 
 ## Sovelluksen lataaminen
 
-Mene hakemaan ohjelma [täältä](https://github.com/osxosxos/otm-harjoitustyo/releases). Lataa tiedosto StatMaster-1.0-SNAPSHOT.jar, kohdasta Lopullinen julkaisu. Tallenta tiedosto mieleiseen paikkaan. Kaksoisklikkaa tiedostoa tai mene kansioon komentokehotteella ja suorita tiedosto komentoriviltä komennolla: java -jar StatMaster -1.0-SNAPSHOT.jar.
+Mene hakemaan ohjelma [täältä](https://github.com/osxosxos/otm-harjoitustyo/releases). Lataa tiedosto StatMaster-1.0-SNAPSHOT.jar, kohdasta Lopullinen julkaisu. Tallenna tiedosto. Kaksoisklikkaa tiedostoa tai mene kansioon komentokehotteella ja suorita tiedosto komentoriviltä komennolla: java -jar StatMaster -1.0-SNAPSHOT.jar.
 
 ## Sovelluksen käyttäminen 
 
