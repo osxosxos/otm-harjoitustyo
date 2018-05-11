@@ -9,6 +9,7 @@ Mene hakemaan ohjelma [täältä](https://github.com/osxosxos/otm-harjoitustyo/r
 Sovellus käynnistyy tyhjään näkymään, jossa on ohjeistus nappien käytölle.
 
 *Nappi UusiTehtävä luo uuden tehtävän
+
 *Nappi Lopeta sulkee sovelluksen
 
 ### Uuden tehtävän luominen
