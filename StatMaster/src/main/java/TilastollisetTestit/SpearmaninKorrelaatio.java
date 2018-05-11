@@ -1,4 +1,3 @@
-
 package TilastollisetTestit;
 
 import java.util.ArrayList;
@@ -13,18 +12,36 @@ import java.util.Collections;
  */
 public class SpearmaninKorrelaatio extends PearsonKorrelaatio {
 
+    /**
+     * Luokka, jolla lasketaan spearmanin korrelaatio, joka on sama asia kuin
+     * pearsonin korrelaatio järjestysasteikollisille muuttujille.
+     */
     public SpearmaninKorrelaatio() {
         super();
     }
 
-    @Override
-    public void laske(ArrayList<Integer> arvotX, ArrayList<Integer> arvotY) {
-        ArrayList<Integer>xJarjestys = muunnaArvotJarjestysLuvuiksi(arvotX);
-        ArrayList<Integer>yJarjestys = muunnaArvotJarjestysLuvuiksi(arvotY);
+    /**
+     * Laskee muuttujien välisen spearmanin korrelaation. Datan ei tarvitse olla
+     * järjestysasteikollista, koska ohjelma muuttaa datan
+     * järjestysasteikolliseksi.
+     *
+     * @param x Muuttujan X arvot ArrayListinä, jossa kokonaislukuja.
+     * @param y Muuttujan Y arvot ArrayListinä, jossa kokonaislukuja.
+     */
+    public final void laskeSpearman(final ArrayList<Integer> x,
+            final ArrayList<Integer> y) {
+        ArrayList<Integer> xJarjestys = jarjestys(x);
+        ArrayList<Integer> yJarjestys = jarjestys(y);
         super.laske(xJarjestys, yJarjestys);
     }
 
-    public ArrayList<Integer> muunnaArvotJarjestysLuvuiksi(ArrayList<Integer> arvot) {
+    /**
+     * Muuttaa listan numeroarvot järjestysasteikollisiksi.
+     *
+     * @param arvot ArrayList, jossa on muuttujan arvot kokonaislukuina.
+     * @return Palauttaa ArrayListin, jossa on kokonaislukuja.
+     */
+    public final ArrayList<Integer> jarjestys(final ArrayList<Integer> arvot) {
 
         int[] uusi = new int[arvot.size()];
 

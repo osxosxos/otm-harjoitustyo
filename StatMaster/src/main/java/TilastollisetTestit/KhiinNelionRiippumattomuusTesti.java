@@ -10,17 +10,53 @@ import Jakaumat.KhiinNelionJakauma;
  */
 public class KhiinNelionRiippumattomuusTesti {
 
-    PerusLaskuKaavat kaavat;
-    public int n;
-    public int rivit;
-    public int sarakkeet;
-    public int[] riviFrekvenssit;
-    public int[] sarakeFrekvenssit;
-    public int[][] havaitutFrekvenssit;
-    public double[][] odotetutFrekvenssit;
-    public double khiinNelio;
-    public String pArvo;
+    /**
+     * Peruskaavat, joita tarvitaan joihinkin testin vaiheisiin.
+     */
+    private PerusLaskuKaavat kaavat;
+    /**
+     * Ristiintaulukon havaintojen yhteenlaskettu määrä.
+     */
+    private int n;
+    /**
+     * Ristiintaulukon rivien määrä.
+     */
+    private int rivit;
+    /**
+     * Ristiintaulukon sarakkeiden määrä.
+     */
+    private int sarakkeet;
+    /**
+     * Riveillä olevien havaintojen summat.
+     */
+    private int[] riviFrekvenssit;
+    /**
+     * Sarakkeissa olevien havaintojen summat.
+     */
+    private int[] sarakeFrekvenssit;
+    /**
+     * Ristiintaulukossa olevat havainnot.
+     */
+    private int[][] havaitutFrekvenssit;
+    /**
+     * Teoreettiset havainnot, eli miten havainnot jakautuisivat, jos kaikissa
+     * luokissa olisi suhteellisesti sama määrä havaintoja.
+     */
+    private double[][] odotetutFrekvenssit;
+    /**
+     * Tesin tulos.
+     */
+    private double khiinNelio;
+    /**
+     * Testin tuloksen tilastollinen merkitsevyys.
+     */
+    private String pArvo;
 
+    /**
+     * Testiluokan parametrit ovat aluksi tyhjiä, vasta kaksiulotteisen
+     * kokonaislukutaulukon syöttäminen luokan funktiolle laske, antaa
+     * muuttujille arvot.
+     */
     public KhiinNelionRiippumattomuusTesti() {
         this.kaavat = new PerusLaskuKaavat();
         this.n = 0;
@@ -34,7 +70,12 @@ public class KhiinNelionRiippumattomuusTesti {
         this.pArvo = "ns";
     }
 
-    public void laske(int[][] taulu) {
+    /**
+     * Laskee khiin neliönn riippumattomuustestin ja sille p-arvon.
+     *
+     * @param taulu Kokonaislukutaulu, jossa on havaittu data.
+     */
+    public final void laske(final int[][] taulu) {
         this.havaitutFrekvenssit = taulu;
         this.setN();
         this.rivit = this.havaitutFrekvenssit.length;
@@ -49,7 +90,92 @@ public class KhiinNelionRiippumattomuusTesti {
         this.pArvo();
     }
 
-    public void setN() {
+    /**
+     * Palauttaa testin taulukon havaintojen määrän.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int getN() {
+        return n;
+    }
+
+    /**
+     * Palauttaa testin taulukon rivien määrän.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int getRivit() {
+        return rivit;
+    }
+
+    /**
+     * Palauttaa testin taulukon sarakkeiden määrän.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int getSarakkeet() {
+        return sarakkeet;
+    }
+
+    /**
+     * Palauttaa testin riveillä olevien havaintojen määrät.
+     *
+     * @return Yksiulotteinen kokonaislukutaulukko.
+     */
+    public final int[] getRiviFrekvenssit() {
+        return riviFrekvenssit;
+    }
+
+    /**
+     * Palauttaa testin sarakkeilla olevien havaintojen summat.
+     *
+     * @return Yksiulottinenen kokonaislukutaulukko.
+     */
+    public final int[] getSarakeFrekvenssit() {
+        return sarakeFrekvenssit;
+    }
+
+    /**
+     * Palauttaa kaksiulotteisen taulun, jossa on havaitut frekvenssit.
+     *
+     * @return Kaksiulotteinen kokonaislukutaulukko.
+     */
+    public final int[][] getHavaitutFrekvenssit() {
+        return havaitutFrekvenssit;
+    }
+
+    /**
+     * Palauttaa testin odotetut frekvenssit.
+     *
+     * @return Kaksiulotteinen kokonaislukutaulukko, jossa testin odotetut
+     * frekvenssit.
+     */
+    public final double[][] getOdotetutFrekvenssit() {
+        return odotetutFrekvenssit;
+    }
+
+    /**
+     * Palauttaa testisuureen p-arvon.
+     *
+     * @return P-arvo merkkijonona.
+     */
+    public final String getpArvo() {
+        return pArvo;
+    }
+
+    /**
+     * Palauttaa tesin khiin neliön arvon.
+     *
+     * @return Khiin neliö double -muuttujana.
+     */
+    public final double getKhiinNelio() {
+        return khiinNelio;
+    }
+
+    /**
+     * Laskee aineiston havaintojen määrän.
+     */
+    public final void setN() {
         int summa = 0;
 
         for (int i = 0; i < havaitutFrekvenssit.length; i++) {
@@ -62,7 +188,10 @@ public class KhiinNelionRiippumattomuusTesti {
 
     }
 
-    public void setRiviFrekvenssit() {
+    /**
+     * Laskee rivien summat.
+     */
+    public final void setRiviFrekvenssit() {
 
         for (int i = 0; i < rivit; i++) {
             int summa = 0;
@@ -74,7 +203,10 @@ public class KhiinNelionRiippumattomuusTesti {
 
     }
 
-    public void setSarakeFrekvenssit() {
+    /**
+     * Laskee sarakkeiden summat.
+     */
+    public final void setSarakeFrekvenssit() {
         for (int i = 0; i < sarakkeet; i++) {
             int summa = 0;
             for (int j = 0; j < rivit; j++) {
@@ -84,11 +216,15 @@ public class KhiinNelionRiippumattomuusTesti {
         }
     }
 
-    public void setOdotetutFrekvenssit() {
+    /**
+     * Laskee annetulle ristiintaululle odotetut frekvenssit.
+     */
+    public final void setOdotetutFrekvenssit() {
 
         for (int i = 0; i < rivit; i++) {
             for (int j = 0; j < sarakkeet; j++) {
-                double tulos = this.riviFrekvenssit[i] * this.sarakeFrekvenssit[j];
+                double tulos = this.riviFrekvenssit[i]
+                        * this.sarakeFrekvenssit[j];
                 double odotus = tulos / this.n;
                 double pyoristys = kaavat.pyoristaKahteenDesimaaliin(odotus);
                 this.odotetutFrekvenssit[i][j] = pyoristys;
@@ -96,7 +232,10 @@ public class KhiinNelionRiippumattomuusTesti {
         }
     }
 
-    public void khiinNelio() {
+    /**
+     * Laskee annetulle taulukolle khiin neliön.
+     */
+    public final void khiinNelio() {
 
         double khii = 0;
 
@@ -115,7 +254,10 @@ public class KhiinNelionRiippumattomuusTesti {
 
     }
 
-    public void pArvo() {
+    /**
+     * Määrittää testisuureen p-arvon.
+     */
+    public final void pArvo() {
         KhiinNelionJakauma khii = new KhiinNelionJakauma();
         int df = (rivit - 1) * (sarakkeet - 1);
         this.pArvo = khii.merkitsevyysTaso(df, this.khiinNelio);

@@ -1,25 +1,57 @@
 package Tehtavat;
 
-
 import TilastollisetTestit.StudentinTTestiParittaisilleOtoksille;
 import java.util.ArrayList;
 
 /**
+ * Luokka, jolla luodaan parittaisten otosten t-testi tehtävä.
  *
  * @author Oskari Koskinen
  */
 public class ParittaistenOtostenTTestiTehtava extends Tehtava {
 
-    int muuttuja;
-    String ryhmaManipulaatio;
-    String hypoteesi;
-    int koko;
-    int ennenMediaani;
-    int jalkeenMediaani;
-    ArrayList<Integer> ennenArvot;
-    ArrayList<Integer> jalkeenArvot;
-    StudentinTTestiParittaisilleOtoksille t;
+    /**
+     * Muuttuja, jonka arvojen muutoksesta ollaan kiinnostuneita.Numero kertoo
+     * missä kohtaa muuttuja taulukkoa halutun muuttujan nimi on.
+     */
+    private int muuttuja;
+    /**
+     * Mitä mittausten välillä tapahtuu.
+     */
+    private String ryhmaManipulaatio;
+    /**
+     * Miten mittaukset vaikuttavat keskiarvoihin.
+     */
+    private String hypoteesi;
+    /**
+     * Otoksen koko.
+     */
+    private int koko;
+    /**
+     * Mielivaltainen arvottu luku, joka kuvaa aineiston keskikohtaa ennen.
+     */
+    private int ennenMediaani;
+    /**
+     * Mielivaltainen arvottu luku, joka kuvaa aineiston keskikohtaa jälkeen.
+     */
+    private int jalkeenMediaani;
+    /**
+     * Arvot ennen käsittelyä kokonaislukulistana.
+     */
+    private ArrayList<Integer> ennenArvot;
+    /**
+     * Arvot käsittelyn jälkeen kokonaislukulistana.
+     */
+    private ArrayList<Integer> jalkeenArvot;
+    /**
+     * Testisuure, joka määrittää tehtävän oikeat vastaukset.
+     */
+    private StudentinTTestiParittaisilleOtoksille t;
 
+    /**
+     * Konstruktori asettaa kaiken aluksi tyhjäksi. Tehtävän luonti funktio
+     * antaa muuttujille arvot.
+     */
     public ParittaistenOtostenTTestiTehtava() {
         super();
         this.muuttuja = 0;
@@ -33,8 +65,13 @@ public class ParittaistenOtostenTTestiTehtava extends Tehtava {
         this.t = new StudentinTTestiParittaisilleOtoksille();
     }
 
-    public void luoUusiTehtava() {
-        this.setMuuttuja(super.random.nextInt(super.aiheetPerusmuoto().length));
+    /**
+     * Luo uuden, satunnaisesti generoidun tehtävän, jonka aihe on parittaisten
+     * otosten t-testi.
+     */
+    public final void luoUusiTehtava() {
+        this.setMuuttuja(super.getRandom()
+                .nextInt(super.aiheetPerusmuoto().length));
         this.setRyhmaManipulaatio(this.arvoRyhmaManipulaatio());
         this.setEnnenMediaani(this.arvoEnnenMediaani());
         this.setJalkeenMediaani(this.arvoJalkeenMediaani());
@@ -48,7 +85,7 @@ public class ParittaistenOtostenTTestiTehtava extends Tehtava {
         } else {
             this.t.laske(this.ennenArvot, this.jalkeenArvot, 2);
         }
-        super.testinValintaTehtava("Verrannolisten parien t-testi");
+        super.testinValintaTehtava("Verrannollisten parien t-testi");
         this.nollaHypoteesiTehtava();
         this.vaihtoehtoinenHypoteesiTehtava();
         String ohje1 = "Valitse annetuista vaihtoehdoista "
@@ -57,50 +94,100 @@ public class ParittaistenOtostenTTestiTehtava extends Tehtava {
                 + "erotusten otoskeskihajonta: ";
         String ohje3 = "Valitse annetuista vaihtoehdoista "
                 + "testisuureen arvo: ";
-        super.laskemisTehtava(this.t.erotustenKa, 2, ohje1);
-        super.laskemisTehtava(this.t.erotustenOtosKh, 2, ohje2);
-        super.laskemisTehtava(this.t.t, 2, ohje3);
+        super.laskemisTehtava(this.t.getErotustenKa(), 5, ohje1);
+        super.laskemisTehtava(this.t.getErotustenOtosKh(), 5, ohje2);
+        super.laskemisTehtava(this.t.getT(), 5, ohje3);
         this.pArvoTehtava();
     }
 
-    public int getMuuttuja() {
+    /**
+     * Palauttaa merkkijono muuttujan sijainnin muuttuja taulukossa.
+     *
+     * @return Palauttaa kokonaisluvun.
+     */
+    public final int getMuuttuja() {
         return this.muuttuja;
     }
 
-    public String getRyhmaManipulaatio() {
+    /**
+     * Palauttaa kokeellisen manipulaation selityksen merkkijonona.
+     *
+     * @return Palauttaa merkkijonon.
+     */
+    public final String getRyhmaManipulaatio() {
         return ryhmaManipulaatio;
     }
 
-    public String getHypoteesi() {
+    /**
+     * Palauttaa tehtävän hypoteesin.
+     *
+     * @return Merkkijono.
+     */
+    public final String getHypoteesi() {
         return hypoteesi;
     }
 
-    public int getKoko() {
+    /**
+     * Palauttaa otoksen koon.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int getKoko() {
         return koko;
     }
 
-    public int getEnnenMediaani() {
+    /**
+     * Palauttaa arvojen keskikohdan ennen kokeellista manipulaatiota.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int getEnnenMediaani() {
         return ennenMediaani;
     }
 
-    public int getJalkeenMediaani() {
+    /**
+     * Palauttaa arvojen keskikohdan kokeellisen manipulaation jälkeen.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int getJalkeenMediaani() {
         return jalkeenMediaani;
     }
 
-    public ArrayList<Integer> getEnnenArvot() {
+    /**
+     * Koehenkilöiden arvot ennen kokeellista manipulaatiota.
+     *
+     * @return ArrayList, jossa kokonaislukuja.
+     */
+    public final ArrayList<Integer> getEnnenArvot() {
         return ennenArvot;
     }
 
-    public ArrayList<Integer> getJalkeenArvot() {
+    /**
+     * Koehenkilöiden arvot kokeellisten manipulaation jälkeen.
+     *
+     * @return ArrayList, jossa kokonaislukuja.
+     */
+    public final ArrayList<Integer> getJalkeenArvot() {
         return jalkeenArvot;
     }
-      
+
+    /**
+     * Tehtävän pohjana oleva tilastollinen testi -objekti, joka sisältää
+     * tehtävän oikeat vastaukset.
+     *
+     * @return StudentinTTestiParittaisilleOtoksille -objekti.
+     */
+    public final StudentinTTestiParittaisilleOtoksille getT() {
+        return t;
+    }
+
     /**
      * Luo osatehtävän, jossa määritetään testisuureen p-arvo.
      */
-    public void pArvoTehtava() {
-        String[] kirjaimet = 
-                new String[]{"A = 1: ", "B = 2: ", "C = 3: ", "D = 4: "};
+    public final void pArvoTehtava() {
+        String[] kirjaimet
+                = new String[]{"A = 1: ", "B = 2: ", "C = 3: ", "D = 4: "};
         ArrayList<String> vaihtoEhdot = new ArrayList();
 
         vaihtoEhdot.add("Tulos ei ole tilastollisesti merkitsevä");
@@ -117,16 +204,16 @@ public class ParittaistenOtostenTTestiTehtava extends Tehtava {
             tehtavanOhje = tehtavanOhje + kirjaimet[i] + vaihtoEhdot.get(i);
         }
 
-        if (this.hypoteesi.equals("X<Y") && this.t.t <= 0) {
+        if (this.hypoteesi.equals("X<Y") && this.t.getT() <= 0) {
             oikeaVastaus = 1;
-        } else if (this.hypoteesi.equals("X>Y") && this.t.t >= 0) {
+        } else if (this.hypoteesi.equals("X>Y") && this.t.getT() >= 0) {
             oikeaVastaus = 1;
         } else {
-            if (this.t.pArvo.equals("ns")) {
+            if (this.t.getpArvo().equals("ns")) {
                 oikeaVastaus = 1;
-            } else if (this.t.pArvo.equals("p <0.05")) {
+            } else if (this.t.getpArvo().equals("p <0.05")) {
                 oikeaVastaus = 2;
-            } else if (this.t.pArvo.equals("p < 0.01")) {
+            } else if (this.t.getpArvo().equals("p < 0.01")) {
                 oikeaVastaus = 3;
             } else {
                 oikeaVastaus = 4;
@@ -134,13 +221,13 @@ public class ParittaistenOtostenTTestiTehtava extends Tehtava {
         }
 
         OsaTehtava tehtava = new OsaTehtava(oikeaVastaus, tehtavanOhje);
-        super.osaTehtavat.add(tehtava);
+        super.getOsaTehtavat().add(tehtava);
     }
 
     /**
      * Luo tehtavan, jossa määritetään testin nollahypoteesi.
      */
-    public void nollaHypoteesiTehtava() {
+    public final void nollaHypoteesiTehtava() {
         String vastaus1 = "A = 1: Mittauksien välillä ei ole eroa.";
         String vastaus2 = "B = 2: Arvot ovat kasvaneet mittauksien välillä";
         String vastaus3 = "C = 3: Arvot ovat pienentyneet mittauksien välillä";
@@ -154,10 +241,13 @@ public class ParittaistenOtostenTTestiTehtava extends Tehtava {
                 + vastaus4 + System.lineSeparator();
 
         OsaTehtava tehtava = new OsaTehtava(1, tehtavanOhje);
-        super.osaTehtavat.add(tehtava);
+        super.getOsaTehtavat().add(tehtava);
     }
 
-    public void vaihtoehtoinenHypoteesiTehtava() {
+    /**
+     * Luo tehtavan, jossa määritetään testin vastahypoteesi.
+     */
+    public final void vaihtoehtoinenHypoteesiTehtava() {
 
         String vastaus1 = "A = 1: Mittauksien välillä ei ole eroa.";
         String vastaus2 = "B = 2: Arvot ovat kasvaneet mittauksien välillä";
@@ -182,16 +272,22 @@ public class ParittaistenOtostenTTestiTehtava extends Tehtava {
         }
 
         OsaTehtava tehtava = new OsaTehtava(vastaus, tehtavanOhje);
-        super.osaTehtavat.add(tehtava);
+        super.getOsaTehtavat().add(tehtava);
     }
 
-    public String arvoHypoteesi() {
+    /**
+     * Arpoo tehtävälle hypoteesin: arvot joko kasvavat, pienevät, tai muuttuvat
+     * suuntaan jota ei ole etukäteen määritelty.
+     *
+     * @return Merkkijono.
+     */
+    public final String arvoHypoteesi() {
 
         String h1 = "X<Y";
         String h2 = "X>Y";
         String h3 = "X=/=Y";
 
-        int x = random.nextInt(3);
+        int x = super.getRandom().nextInt(3);
 
         if (x == 0) {
             this.hypoteesi = h1;
@@ -204,7 +300,12 @@ public class ParittaistenOtostenTTestiTehtava extends Tehtava {
         return hypoteesi;
     }
 
-    public String arvoRyhmaManipulaatio() {
+    /**
+     * Palauttaa satunnaisen kokeellisen manipulaation.
+     *
+     * @return Merkkijono.
+     */
+    public final String arvoRyhmaManipulaatio() {
         String[] manipulaatiot = new String[]{"taideterapian",
             "neuropsykologisen kuntoutuksen", "kognitiivisen psykoterapian",
             "psykodynaamisen psykoterapian",
@@ -212,49 +313,92 @@ public class ParittaistenOtostenTTestiTehtava extends Tehtava {
             "humanistisen kuvataideterapian", "kristalliterapian",
             "hopeaveden juonnin", "reikihoidon", "energiahoidon",
             "homeopaattisten valmisteiden"};
-        int x = random.nextInt(manipulaatiot.length);
+        int x = super.getRandom().nextInt(manipulaatiot.length);
         return manipulaatiot[x];
     }
 
-    public int arvoKoko() {
-        int x = random.nextInt(16) + 5;
+    /**
+     * Arpoo aineiston koon.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int arvoKoko() {
+        int x = super.getRandom().nextInt(16) + 5;
         return x;
     }
 
-    public int arvoEnnenMediaani() {
-        int x = (random.nextInt(10) + 1) * 5 + 50;
+    /**
+     * Arpoo aineistolle keskikohdan ennen kokeellista manipulaatiota.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int arvoEnnenMediaani() {
+        int x = (super.getRandom().nextInt(10) + 1) * 5 + 50;
         return x;
     }
 
-    public int arvoJalkeenMediaani() {
+    /**
+     * Arpoo aineistolle keskikohdan kokeellisen manipulaation jälkeen, ehtona
+     * on, että se ei ole liian kaukana ennen arvojen keskikohdasta.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int arvoJalkeenMediaani() {
         int x = 0;
         while (true) {
-            x = random.nextInt(random.nextInt(10) + 1) * 5 + 50;
-            if (Math.abs(this.ennenMediaani - x) <= 20 
+            x = super.getRandom().nextInt(super.getRandom().nextInt(10) + 1)
+                    * 5 + 50;
+            if (Math.abs(this.ennenMediaani - x) <= 20
                     && x != this.ennenMediaani) {
                 return x;
             }
         }
     }
 
-    public void setKoko(int koko) {
-        this.koko = koko;
+    /**
+     * Asettaa koon otokselle.
+     *
+     * @param n Kokonaisluku.
+     */
+    public final void setKoko(final int n) {
+        this.koko = n;
     }
 
-    public void setMuuttuja(int muuttuja) {
-        this.muuttuja = muuttuja;
+    /**
+     * Asettaa arvon manipulaation kohteena olevalle muuttujalle.
+     *
+     * @param x Kokonaisluku.
+     */
+    public final void setMuuttuja(final int x) {
+        this.muuttuja = x;
     }
 
-    public void setRyhmaManipulaatio(String ryhmaManipulaatio) {
-        this.ryhmaManipulaatio = ryhmaManipulaatio;
+    /**
+     * Asettaa arvon ryhmälle suoritetulle kokeelliselle manipulaatiolle.
+     *
+     * @param manipulaatio Merkkijono.
+     */
+    public final void setRyhmaManipulaatio(final String manipulaatio) {
+        this.ryhmaManipulaatio = manipulaatio;
     }
 
-    public void setHypoteesi(String hypoteesi) {
-        this.hypoteesi = hypoteesi;
+    /**
+     * Asettaa kokeelle hypoteesin, eli mitä manipulaation tulisi tehdä ryhmän
+     * arvoille.
+     *
+     * @param hypoteesimme Merkkijonona.
+     */
+    public final void setHypoteesi(final String hypoteesimme) {
+        this.hypoteesi = hypoteesimme;
     }
 
-    public String luoOhjeistus() {
-        int x = random.nextInt(25) + 5;
+    /**
+     * Luo tehtävälle ohjeistuksen.
+     *
+     * @return Merkkijono.
+     */
+    public final String luoOhjeistus() {
+        int x = super.getRandom().nextInt(25) + 5;
         String ohjeistus = "Tutkija on kiinnostunut ";
         ohjeistus = ohjeistus + this.ryhmaManipulaatio;
         ohjeistus = ohjeistus + " vaikutuksesta ";
@@ -287,26 +431,48 @@ public class ParittaistenOtostenTTestiTehtava extends Tehtava {
             ohjeistus = ohjeistus + "Tutki ovatko arvot yhtäsuuret";
         }
         ohjeistus = ohjeistus + System.lineSeparator()
-                + "Voit olettaa, että molemmat mittaukset noudattavat normaalijakaumaa "
-                + System.lineSeparator() + "ja ovat vähintään välimatka-asteikollisia."
+                + "Voit olettaa, että molemmat "
+                + "mittaukset noudattavat normaalijakaumaa "
+                + System.lineSeparator()
+                + "ja ovat vähintään välimatka-asteikollisia."
                 + System.lineSeparator();
         return ohjeistus;
     }
 
-    public void setEnnenMediaani(int ennenMediaani) {
-        this.ennenMediaani = ennenMediaani;
+    /**
+     * Asettaa aineistolle keskikohdan ennen kokeellista manipulaatiota.
+     *
+     * @param mediaani Kokonaisluku.
+     */
+    public final void setEnnenMediaani(final int mediaani) {
+        this.ennenMediaani = mediaani;
     }
 
-    public void setJalkeenMediaani(int jalkeenMediaani) {
-        this.jalkeenMediaani = jalkeenMediaani;
+    /**
+     * Asettaa aineistolle keskikohdan kokeellisen manipulaation jälkeen.
+     *
+     * @param mediaani Kokonaisluku.
+     */
+    public final void setJalkeenMediaani(final int mediaani) {
+        this.jalkeenMediaani = mediaani;
     }
 
-    public void setEnnenArvot(ArrayList<Integer> ennenArvot) {
-        this.ennenArvot = ennenArvot;
+    /**
+     * Asettaa aineistolle arvot ennen kokeellista manipulaatiota.
+     *
+     * @param arvot ArrayList, jossa kokonaislukuja.
+     */
+    public final void setEnnenArvot(final ArrayList<Integer> arvot) {
+        this.ennenArvot = arvot;
     }
 
-    public void setJalkeenArvot(ArrayList<Integer> jalkeenArvot) {
-        this.jalkeenArvot = jalkeenArvot;
+    /**
+     * Asettaa aineistolle arvot kokeellisten manipulaation jälkeen.
+     *
+     * @param arvot ArrayList, jossa kokonaislukuja.
+     */
+    public final void setJalkeenArvot(final ArrayList<Integer> arvot) {
+        this.jalkeenArvot = arvot;
     }
 
 }

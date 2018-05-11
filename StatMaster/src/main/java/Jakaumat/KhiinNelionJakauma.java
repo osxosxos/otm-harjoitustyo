@@ -1,6 +1,5 @@
 package Jakaumat;
 
-
 /**
  * Luokka khiin neliön jakaumasta p-arvojen laskemiseen.
  *
@@ -8,16 +7,28 @@ package Jakaumat;
  */
 public class KhiinNelionJakauma {
 
-    int[] vapausAsteet;
-    double[] pArvot;
-    double[][] jakaumataulu;
+    /**
+     * Taulukko, jossa on jakauman vapausasteet.
+     */
+    private final int[] vapausAsteet;
+    /**
+     * Taulukko, jossa on khiin neliön jakauman kriittisia arvoja.
+     */
+    private final double[][] jakaumataulu;
 
+    /**
+     * Uudella khiin neliön jakaumalla on maksimissaan 20 vapausastetta.
+     * Kriittiset arvot löytyvät p-Arvoille 0.05, 0.01 ja 0.001. Taulukon luvut
+     * eivät ole maagisia lukuja, vaikka checkstyle niin väittääkin. Kaikki
+     * luvut ovat khiin neluön jakauman kriittisiä arvoja, joiden kaikkien
+     * määrittäminen vakioksi olisi turhaa.
+     */
     public KhiinNelionJakauma() {
-        this.vapausAsteet = new int[20];
-        for (int i = 1; i <= 20; i++) {
+        final int vapausAsteidenMaara = 20;
+        this.vapausAsteet = new int[vapausAsteidenMaara];
+        for (int i = 1; i <= vapausAsteidenMaara; i++) {
             this.vapausAsteet[i - 1] = i;
         }
-        this.pArvot = new double[]{0.05, 0.01, 0.001};
         this.jakaumataulu = new double[][]{
             {3.841, 6.635, 10.828},
             {5.991, 9.210, 13.816},
@@ -42,7 +53,14 @@ public class KhiinNelionJakauma {
         };
     }
 
-    public String merkitsevyysTaso(int df, double khii) {
+    /**
+     * Palauttaa p-arvon khiin neliön testin tulokselle.
+     *
+     * @param df Testin vapausasteet.
+     * @param khii Testin khiin neliön arvo.
+     * @return Palauttaa testin tulokselle p-arvon String -muuttujana.
+     */
+    public final String merkitsevyysTaso(final int df, final double khii) {
         if (khii < jakaumataulu[df][0]) {
             return "ns";
         } else if (khii >= jakaumataulu[df][0] && khii < jakaumataulu[df][1]) {

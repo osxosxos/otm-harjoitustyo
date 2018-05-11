@@ -1,4 +1,3 @@
-
 package Grafiikka;
 
 import Tehtavat.KhiinNelionRiippumattomuusTestiTehtava;
@@ -17,22 +16,42 @@ import javafx.scene.layout.GridPane;
  */
 public class KhiinNelionRiippumattomuusGrafiikka {
 
-    int indeksi;
-    KhiinNelionRiippumattomuusTestiTehtava tehtava;
+    /**
+     * Indeksi kuvaa tehtävän osatehtävien numeroita.
+     */
+    private int indeksi;
+    /**
+     * Tehtava kuvaa tehtävän aihetta, eli suoritettavaa tilastollista testiä.
+     */
+    private KhiinNelionRiippumattomuusTestiTehtava tehtava;
 
+    /**
+     * Luokan konstruktori asettaa indeksin nollaksi, eli tehtävän suorittaminen
+     * alkaa ensimmäisestä osatehtävästä. Konstruktori luo automaattisesti
+     * kutsuttaessa uuden tehtävän.
+     */
     public KhiinNelionRiippumattomuusGrafiikka() {
         this.indeksi = 0;
         this.tehtava = new KhiinNelionRiippumattomuusTestiTehtava();
         this.tehtava.luoUusiTehtava();
     }
 
-    public void kasvataIndeksia() {
+    /**
+     * Kasvattaa indeksiä. Indeksin kasvattamisen ansiosta käyttöliittymässä
+     * seuraava osatehtävä tulee näkyviin ja edellinen menee piiloon.
+     */
+    public final void kasvataIndeksia() {
         if (this.indeksi < this.tehtava.getOsaTehtavat().size()) {
             this.indeksi++;
         }
     }
 
-    public Parent getNakyma() {
+    /**
+     * Valikko, jolla tehtävän osatehtävä ratkaistaan.
+     *
+     * @return Palauttaa GridPane -objektin.
+     */
+    public final Parent getNakyma() {
 
         GridPane asettelu = new GridPane();
 
@@ -44,7 +63,8 @@ public class KhiinNelionRiippumattomuusGrafiikka {
 
         ArrayList<OsaTehtava> osaTehtavat = tehtava.getOsaTehtavat();
 
-        OsaTehtavaVastausValikko valikko = new OsaTehtavaVastausValikko(osaTehtavat.get(indeksi));
+        OsaTehtavaVastausValikko valikko
+                = new OsaTehtavaVastausValikko(osaTehtavat.get(indeksi));
         Parent nakyma = valikko.getNakyma();
         asettelu.add(nakyma, 0, 1);
 
@@ -55,7 +75,8 @@ public class KhiinNelionRiippumattomuusGrafiikka {
             asettelu.getChildren().clear();
             asettelu.add(ohje, 0, 0);
 
-            OsaTehtavaVastausValikko uusi = new OsaTehtavaVastausValikko(osaTehtavat.get(indeksi));
+            OsaTehtavaVastausValikko uusi
+                    = new OsaTehtavaVastausValikko(osaTehtavat.get(indeksi));
             asettelu.add(uusi.getNakyma(), 0, 1);
 
             if (this.indeksi < osaTehtavat.size() - 1) {
@@ -67,7 +88,4 @@ public class KhiinNelionRiippumattomuusGrafiikka {
         return asettelu;
     }
 
-    
-
 }
-

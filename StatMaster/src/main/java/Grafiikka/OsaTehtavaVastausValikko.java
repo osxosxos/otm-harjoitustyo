@@ -13,13 +13,28 @@ import javafx.scene.layout.HBox;
  */
 public class OsaTehtavaVastausValikko {
 
-    OsaTehtava osaTehtava;
+    /**
+     * Osatehtävä, jota valikossa suoritetaan.
+     */
+    private OsaTehtava osaTehtava;
 
-    public OsaTehtavaVastausValikko(OsaTehtava osaTehtava) {
-        this.osaTehtava = osaTehtava;
+    /**
+     * Konstruktori saa syötteenä osatehtävän, jota valikolla ratkaistaan.
+     *
+     * @param tehtava Osatehtävä, jolle valikko luodaan.
+     */
+    public OsaTehtavaVastausValikko(final OsaTehtava tehtava) {
+        this.osaTehtava = tehtava;
     }
 
-    public Parent getNakyma() {
+    /**
+     * Geneerinen valikko osatehtävän ratkaisemikseksi. Sisältää tehtävän
+     * ohjeen, vastausnapit ja ilmoituksen siitä onko tehtävän vastaus oikein
+     * vai väärin.
+     *
+     * @return Palauttaa GridPane -objektin.
+     */
+    public final Parent getNakyma() {
 
         GridPane asettelu = new GridPane();
 
@@ -41,10 +56,15 @@ public class OsaTehtavaVastausValikko {
         asettelu.add(komponenttiryhma, 0, 1);
 
         Label vaarin = new Label("Vastaus on väärin!");
-        Label oikein = new Label("Vastaus on oikein!");        
-        
+        Label oikein = new Label("Vastaus on oikein!");
+
+        final int vastausYksi = 1;
+        final int vastausKaksi = 2;
+        final int vastausKolme = 3;
+        final int vastausNelja = 4;
+
         yksi.setOnAction((event) -> {
-            int vastaus = osaTehtava.suorita(1);
+            int vastaus = osaTehtava.suorita(vastausYksi);
             if (vastaus == 0) {
                 asettelu.add(vaarin, 0, 1);
                 asettelu.getChildren().remove(komponenttiryhma);
@@ -56,7 +76,7 @@ public class OsaTehtavaVastausValikko {
         });
 
         kaksi.setOnAction((event) -> {
-            int vastaus = osaTehtava.suorita(2);
+            int vastaus = osaTehtava.suorita(vastausKaksi);
             if (vastaus == 0) {
                 asettelu.add(vaarin, 0, 1);
                 asettelu.getChildren().remove(komponenttiryhma);
@@ -68,7 +88,7 @@ public class OsaTehtavaVastausValikko {
         });
 
         kolme.setOnAction((event) -> {
-            int vastaus = osaTehtava.suorita(3);
+            int vastaus = osaTehtava.suorita(vastausKolme);
             if (vastaus == 0) {
                 asettelu.add(vaarin, 0, 1);
                 asettelu.getChildren().remove(komponenttiryhma);
@@ -80,7 +100,7 @@ public class OsaTehtavaVastausValikko {
         });
 
         nelja.setOnAction((event) -> {
-            int vastaus = osaTehtava.suorita(4);
+            int vastaus = osaTehtava.suorita(vastausNelja);
             if (vastaus == 0) {
                 asettelu.add(vaarin, 0, 1);
                 asettelu.getChildren().remove(komponenttiryhma);

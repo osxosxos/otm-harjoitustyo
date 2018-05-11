@@ -4,10 +4,9 @@ import ApuFunktiot.PerusLaskuKaavat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
- * Yleinen tehtäväluokka. Kaikki erilaiset tehtävät ovat tämän luokan
+ * Yleinen tehtävän luontiluokka. Kaikki erilaiset tehtävät ovat tämän luokan
  * erikoistapauksia. Jokainen tehtävä koostuu useista osatehtävistä, koska
  * tilastollisessa testaamisessa on aina monta vaihetta, kuten hypoteesin
  * määrittäminen ja testisuureen laskeminen.
@@ -16,35 +15,78 @@ import java.util.Scanner;
  */
 public class Tehtava {
 
-    String ohje;
-    Random random;
-    Scanner scanner;
-    PerusLaskuKaavat kaavat;
-    ArrayList<OsaTehtava> osaTehtavat;
+    /**
+     * Merkkijono, jossa on tehtävän ohje, eli mitä yleensä pitää selvittää.
+     */
+    private String ohje;
+    /**
+     * Satunnaislukujen luomista varten Random -objekti.
+     */
+    private Random random;
+    /**
+     * Objekti, jolla lasketaan useita tehtävissä tarvittavia peruslaskuja.
+     */
+    private PerusLaskuKaavat kaavat;
+    /**
+     * Lista, jossa on tehtävän osatehtävät.
+     */
+    private ArrayList<OsaTehtava> osaTehtavat;
 
+    /**
+     * Konstruktori luo tyhjän pohjan tehtävälle. Vasta luokan erikoistapaukset
+     * määrittävät mikä tehtävän muoto tulee lopulta olemaan.
+     */
     public Tehtava() {
         this.ohje = "";
         this.random = new Random();
-        this.scanner = new Scanner(System.in);
         this.kaavat = new PerusLaskuKaavat();
         this.osaTehtavat = new ArrayList();
     }
 
-    public String getOhje() {
+    /**
+     * Palauttaa tehtävän ohjeen merkkijonona.
+     *
+     * @return Merkkijono.
+     */
+    public final String getOhje() {
         return this.ohje;
     }
 
-    public ArrayList<OsaTehtava> getOsaTehtavat() {
+    /**
+     * Palauttaa tehtävän osaTehtavat.
+     *
+     * @return ArrayList, jossa on osaTehtavaObjekteja.
+     */
+    public final ArrayList<OsaTehtava> getOsaTehtavat() {
         return this.osaTehtavat;
+    }
+
+    /**
+     * Randomi.
+     *
+     * @return Palauttaa Random -objektin.
+     */
+    public final Random getRandom() {
+        return random;
+    }
+
+    /**
+     * Kaavat.
+     *
+     * @return Palauttaa PerusLaskuKaavat -objektin.
+     */
+    public final PerusLaskuKaavat getKaavat() {
+        return kaavat;
     }
 
     /**
      * Asettaa tehtävälle ohjeen.
      *
-     * @param ohje Erikoistapausluokassa luotu yksilöllinen ohje tehtävälle.
+     * @param tehtavanOhje Erikoistapausluokassa luotu yksilöllinen ohje
+     * tehtävälle.
      */
-    public void setOhje(String ohje) {
-        this.ohje = ohje;
+    public final void setOhje(final String tehtavanOhje) {
+        this.ohje = tehtavanOhje;
     }
 
     /**
@@ -52,7 +94,7 @@ public class Tehtava {
      *
      * @param osatehtava Erikoistapausluokassa luotu alatehtävä.
      */
-    public void lisaaOsaTehtava(OsaTehtava osatehtava) {
+    public final void lisaaOsaTehtava(final OsaTehtava osatehtava) {
         this.osaTehtavat.add(osatehtava);
     }
 
@@ -63,9 +105,12 @@ public class Tehtava {
      * @param kerroin Kerroin, jolla määritetään väärien vaihtoehtojen arvot.
      * @param tehtavanOhje Ohje, joka kertoo mitä pitää laskea.
      */
-    public void laskemisTehtava(double vastaus, int kerroin, String tehtavanOhje) {
+    public final void laskemisTehtava(final double vastaus, final int kerroin,
+            final String tehtavanOhje) {
 
-        String[] kirjaimet = new String[]{"A = 1: ", "B = 2: ", "C = 3: ", "D = 4: "};
+        String kopio = tehtavanOhje;
+        String[] kirjaimet
+                = new String[]{"A = 1: ", "B = 2: ", "C = 3: ", "D = 4: "};
         ArrayList<Double> vaihtoEhdot = new ArrayList();
 
         double vaara1 = vastaus + kerroin * random.nextDouble();
@@ -86,14 +131,14 @@ public class Tehtava {
         int oikeaVastaus = 1;
 
         for (int i = 0; i < vaihtoEhdot.size(); i++) {
-            tehtavanOhje = tehtavanOhje + System.lineSeparator();
-            tehtavanOhje = tehtavanOhje + kirjaimet[i] + vaihtoEhdot.get(i);
+            kopio = kopio + System.lineSeparator();
+            kopio = kopio + kirjaimet[i] + vaihtoEhdot.get(i);
             if (vaihtoEhdot.get(i) == vastaus) {
                 oikeaVastaus = oikeaVastaus + i;
             }
         }
 
-        OsaTehtava tehtava = new OsaTehtava(oikeaVastaus, tehtavanOhje);
+        OsaTehtava tehtava = new OsaTehtava(oikeaVastaus, kopio);
         osaTehtavat.add(tehtava);
     }
 
@@ -103,14 +148,18 @@ public class Tehtava {
      *
      * @param oikeaTesti Tilastollinen testi, jolla tehtävä ratkaistaan.
      */
-    public void testinValintaTehtava(String oikeaTesti) {
-        String[] kirjaimet = new String[]{"A = 1: ", "B = 2: ", "C = 3: ", "D = 4: "};
+    public final void testinValintaTehtava(final String oikeaTesti) {
+        String[] kirjaimet
+                = new String[]{"A = 1: ", "B = 2: ", "C = 3: ", "D = 4: "};
         ArrayList<String> testit = new ArrayList();
 
         String[] testeja = new String[]{"Riippumattomien otosten t-testi",
-            "Verrannolisten parien t-testi", "Khiin neliön riippumattomuustesti",
-            "Pearsonin korrelaatio", "Spearmanin korrelaatio", "Yhden otoksen t-testi",
-            "Khiin neliön yhteensopivuustesti", "Binomijakauma", "Poissonjakauma",
+            "Verrannollisten parien t-testi",
+            "Khiin neliön riippumattomuustesti",
+            "Pearsonin korrelaatio", "Spearmanin korrelaatio",
+            "Yhden otoksen t-testi",
+            "Khiin neliön yhteensopivuustesti", "Binomijakauma",
+            "Poissonjakauma",
             "Kahden muuttujan lineaarinen regressioanalyysi"};
 
         Collections.addAll(testit, testeja);
@@ -145,9 +194,9 @@ public class Tehtava {
     /**
      * Satunnaisia aiheita tehtävien luontia varten.
      *
-     * @return Palauttaa satunnaisen aiheen, esim. "arjenhallinnan ongelmiin".
+     * @return Palauttaa satunnaisen aiheen, esim. "arjenhallinnan ongelmat".
      */
-    public String[] aiheetPerusmuoto() {
+    public final String[] aiheetPerusmuoto() {
         String[] aiheita = new String[]{"masennuksen oireet",
             "yleistyneen ahdistuneisuushäiriön oireet",
             "aktiivisuuden ja tarkkaavaisuuden häiriön oireet",
@@ -161,7 +210,12 @@ public class Tehtava {
         return aiheita;
     }
 
-    public String[] aiheetTaivutus1() {
+    /**
+     * Satunnaisia aiheita tehtävien luontia varten.
+     *
+     * @return Palauttaa satunnaisen aiheen, esim. "arjenhallinnan ongelmiin".
+     */
+    public final String[] aiheetTaivutus1() {
         String[] aiheita = new String[]{"vakavan masennuksen oireisiin",
             "yleistyneen ahdistuneisuushäiriön oireisiin",
             "aktiivisuuden ja tarkkaavaisuuden häiriön oireisiin",
@@ -175,7 +229,12 @@ public class Tehtava {
         return aiheita;
     }
 
-    public String[] aiheetTaivutus2() {
+    /**
+     * Satunnaisia aiheita tehtävien luontia varten.
+     *
+     * @return Palauttaa satunnaisen aiheen, esim. "arjenhallinnan ongelmien".
+     */
+    public final String[] aiheetTaivutus2() {
         String[] aiheita = new String[]{"vakavan masennuksen oireiden",
             "yleistyneen ahdistuneisuushäiriön oireiden",
             "aktiivisuuden ja tarkkaavaisuuden häiriön oireiden",
@@ -194,7 +253,7 @@ public class Tehtava {
      *
      * @return Palauttaa merkkijonotaulu, jossa on luokitteluasteikko.
      */
-    public String[] arvoAsteikkoVektori1() {
+    public final String[] arvoAsteikkoVektori1() {
         int x = random.nextInt(4);
 
         if (x == 0) {
@@ -216,7 +275,7 @@ public class Tehtava {
      * @param arvot Syötteenä annettu merkkijonotaulu.
      * @return Palauttaa taulun merkkijonoesityksenä.
      */
-    public String tulostaAsteikko(String[] arvot) {
+    public final String tulostaAsteikko(final String[] arvot) {
         String jono = "";
         for (int i = 0; i < arvot.length; i++) {
             if (i == arvot.length - 1) {
@@ -234,7 +293,7 @@ public class Tehtava {
      * @param arvot Syötteenä annettu taulukko.
      * @return Palauttaa kokonaislukutaulun.
      */
-    public String tulostaArvot(int[] arvot) {
+    public final String tulostaArvot(final int[] arvot) {
         String jono = "";
         for (int i = 0; i < arvot.length; i++) {
             if (i == arvot.length - 1) {
@@ -252,7 +311,7 @@ public class Tehtava {
      * @param vektori Kokonaislukulista.
      * @return Palauttaa kokonaislukulistan merkkijonona.
      */
-    public String vektoriMerkkiJonoksi(ArrayList<Integer> vektori) {
+    public final String vektoriMerkkiJonoksi(final ArrayList<Integer> vektori) {
         String jono = "";
         for (int i = 0; i < vektori.size(); i++) {
             if (i < vektori.size() - 1) {
@@ -272,7 +331,7 @@ public class Tehtava {
      * @param koko Palautettavan listan koko.
      * @return Palauttaa datan kokonaislukulistana.
      */
-    public ArrayList luoData(int keskikohta, int koko) {
+    public final ArrayList luoData(final int keskikohta, final int koko) {
         ArrayList<Integer> data = new ArrayList();
 
         for (int i = 0; i < koko; i++) {
@@ -302,20 +361,37 @@ public class Tehtava {
         return data;
     }
 
-    public String[] ikaRyhmia() {
+    /**
+     * Palauttaa merkkijonotaulukon, jossa on eri ikäryhmiä.
+     *
+     * @return Merkkijonotaulukko.
+     */
+    public final String[] ikaRyhmia() {
         String[] ikaRyhmia = new String[]{"6-14 vuotiaat", "15-29 vuotiaat",
-            "30-42 vuotiaat", "43-54 vuotiaat", "55-68 vuotiaat", "68-99 vuotiaat"};
+            "30-42 vuotiaat", "43-54 vuotiaat", "55-68 vuotiaat",
+            "68-99 vuotiaat"};
         return ikaRyhmia;
     }
 
-    public String[] ammatteja() {
+    /**
+     * Palauttaa merkkijonotaulukon, jossa on eri ammatteja.
+     *
+     * @return Merkkijonotaulukko.
+     */
+    public final String[] ammatteja() {
         String[] ammatteja = new String[]{"psykologit", "diplomi-insinöörit",
             "lääkärit", "sosiaalityöntekijät", "ekonomit", "hitsaajat",
-            "talonrakentajat", "asuntovälittäjät", "pörssivälittäjät", "kansanedustajat"};
+            "talonrakentajat", "asuntovälittäjät", "pörssivälittäjät",
+            "kansanedustajat"};
         return ammatteja;
     }
 
-    public String[] sukupuolet() {
+    /**
+     * Palauttaa taulukon, jossa on sukupuolet.
+     *
+     * @return Merkkijonotaulu.
+     */
+    public final String[] sukupuolet() {
         String[] sukupuolia = new String[]{"miehet", "naiset"};
         return sukupuolia;
     }

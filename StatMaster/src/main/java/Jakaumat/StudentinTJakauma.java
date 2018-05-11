@@ -1,6 +1,5 @@
 package Jakaumat;
 
-
 /**
  * Luokka t-jakauman arvojen p-arvojen laskemiseen.
  *
@@ -8,18 +7,26 @@ package Jakaumat;
  */
 public class StudentinTJakauma {
 
-    int[] vapausAsteet;
-    double[] pArvot1Suunta;
-    double[] pArvot2Suunta;
-    double[][] jakaumataulu;
+    /**
+     * Taulukko, jossa on jakauman vapausasteet.
+     */
+    private final int[] vapausAsteet;
+    /**
+     * Taulukko, jossa on jakauman kriittiset arvot.
+     */
+    private final double[][] jakaumataulu;
 
+    /**
+     * Uudella t-jakaumalla voi olla korkeintaan 20 vapausastetta. Taulukko
+     * sisältää kriittiset arvot p-arvoille luvusta 0.10 eteenpäin. Seuraavat
+     * p-arvot ovat taulukossa: 0.10, 0.05, 0.025, 0.01, 0.002 ja 0.001.
+     */
     public StudentinTJakauma() {
-        this.vapausAsteet = new int[20];
-        for (int i = 1; i <= 20; i++) {
+        final int vapausAsteidenMaara = 20;
+        this.vapausAsteet = new int[vapausAsteidenMaara];
+        for (int i = 1; i <= vapausAsteidenMaara; i++) {
             this.vapausAsteet[i - 1] = i;
         }
-        this.pArvot1Suunta = new double[]{0.05, 0.025, 0.01, 0.005, 0.001, 0.0005};
-        this.pArvot2Suunta = new double[]{0.10, 0.05, 0.02, 0.01, 0.002, 0.001};
         this.jakaumataulu = new double[][]{
             {6.314, 12.706, 31.820, 63.657, 127.321, 318.309, 636.619},
             {2.920, 4.303, 6.965, 9.925, 14.089, 22.327, 31.599},
@@ -44,23 +51,51 @@ public class StudentinTJakauma {
         };
     }
 
-    public String yksiSuuntainen(int df, double t) {
-        if (Math.abs(t) < jakaumataulu[df][0]) {
+    /**
+     * Palauttaa p-arvon yksisuuntaiselle testille.
+     *
+     * @param df Testin vapausasteet.
+     * @param t Testin t-arvo.
+     * @return Palauttaa p-arvon String -muuttujana.
+     */
+    public final String yksiSuuntainen(final int df, final double t) {
+
+        final int kriittinenNS = 0;
+        final int kriittinen005 = 2;
+        final int kriittinen001 = 5;
+
+        if (Math.abs(t) < jakaumataulu[df][kriittinenNS]) {
             return "ns";
-        } else if (Math.abs(t) >= jakaumataulu[df][0] && Math.abs(t) < jakaumataulu[df][2]) {
+        } else if (Math.abs(t) >= jakaumataulu[df][kriittinenNS]
+                && Math.abs(t) < jakaumataulu[df][kriittinen005]) {
             return "p <0.05";
-        } else if (Math.abs(t) >= jakaumataulu[df][2] && Math.abs(t) < jakaumataulu[df][5]) {
+        } else if (Math.abs(t) >= jakaumataulu[df][kriittinen005]
+                && Math.abs(t) < jakaumataulu[df][kriittinen001]) {
             return "p <0.01";
         }
         return "p <0.001";
     }
-    
-    public String kaksiSuuntainen(int df, double t) {
-        if (Math.abs(t) < jakaumataulu[df][1]) {
+
+    /**
+     * Palauttaa p-arvon kaksisuuntaiselle testille.
+     *
+     * @param df Testin vapausasteet.
+     * @param t Testin t-arvo.
+     * @return Palauttaa p-arvon String -muuttujana.
+     */
+    public final String kaksiSuuntainen(final int df, final double t) {
+
+        final int kriittinenNS = 1;
+        final int kriittinen005 = 3;
+        final int kriittinen001 = 6;
+
+        if (Math.abs(t) < jakaumataulu[df][kriittinenNS]) {
             return "ns";
-        } else if (Math.abs(t) >= jakaumataulu[df][1] && Math.abs(t) < jakaumataulu[df][3]) {
+        } else if (Math.abs(t) >= jakaumataulu[df][kriittinenNS]
+                && Math.abs(t) < jakaumataulu[df][kriittinen005]) {
             return "p <0.05";
-        } else if (Math.abs(t) >= jakaumataulu[df][3] && Math.abs(t) < jakaumataulu[df][6]) {
+        } else if (Math.abs(t) >= jakaumataulu[df][kriittinen005]
+                && Math.abs(t) < jakaumataulu[df][kriittinen001]) {
             return "p <0.01";
         }
         return "p <0.001";

@@ -1,26 +1,61 @@
 package Tehtavat;
 
-
 import TilastollisetTestit.StudentinTTestiRiippumattomilleOtoksille;
 import java.util.ArrayList;
 
 /**
+ * Luokka, jolla luodaan riippumattomien otosten t-testi tehtävä.
  *
  * @author Oskari Koskinen
  */
 public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
 
-    int muuttuja;
-    String ryhmienTyyppi;
-    String ryhmaXnimi;
-    String ryhmaYnimi;
-    int ryhmanXmediaani;
-    int ryhmanYmediaani;
-    String hypoteesi;
-    ArrayList<Integer> ryhmanXarvot;
-    ArrayList<Integer> ryhmanYarvot;
-    StudentinTTestiRiippumattomilleOtoksille t;
+    /**
+     * Muuttujan numerotunniste, jolla voidaan palauttaa muuttujan merkkijono
+     * selite taulukosta.
+     */
+    private int muuttuja;
+    /**
+     * Vertailtavien ryhmien tyyppi, esim. ammattiryhmä.
+     */
+    private String ryhmienTyyppi;
+    /**
+     * Ryhmän X nimi, esim. poliisit.
+     */
+    private String ryhmaXnimi;
+    /**
+     * Ryhmän Y nimi, esim. roistot.
+     */
+    private String ryhmaYnimi;
+    /**
+     * Ryhmän X arvojen keskikohta.
+     */
+    private int ryhmanXmediaani;
+    /**
+     * Ryhmän Y arvojen keskikohta.
+     */
+    private int ryhmanYmediaani;
+    /**
+     * Tehtävän hypoteesi.
+     */
+    private String hypoteesi;
+    /**
+     * Ryhman X arvot kokonaislukuina.
+     */
+    private ArrayList<Integer> ryhmanXarvot;
+    /**
+     * Ryhman Y arvot kokonaislukuina.
+     */
+    private ArrayList<Integer> ryhmanYarvot;
+    /**
+     * T-testi, josta löytyy tehtävän oikeat vastaukset.
+     */
+    private StudentinTTestiRiippumattomilleOtoksille t;
 
+    /**
+     * Konstruktori, joka asettaa tehtavan arvot tyhjäksi ennen uuden tehtävän
+     * luonnin kutsumista.
+     */
     public RiippumattomienOtostenTTestiTehtava() {
         super();
         this.muuttuja = 0;
@@ -35,17 +70,21 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
         this.t = new StudentinTTestiRiippumattomilleOtoksille();
     }
 
-    public void luoUusiTehtava() {
-        this.setMuuttuja(super.random.nextInt(super.aiheetPerusmuoto().length));
+    /**
+     * Luo uuden tehtävän.
+     */
+    public final void luoUusiTehtava() {
+        this.setMuuttuja(super.getRandom()
+                .nextInt(super.aiheetPerusmuoto().length));
         this.setRyhmienTyyppi(this.arvoRyhmienTyyppi());
         this.setRyhmaXnimi(this.arvoRyhmanXnimi());
         this.setRyhmaYnimi(this.arvoRyhmanYnimi());
-        this.setRyhmanXylaraja(this.arvoRyhmanXmediaani());
-        this.setRyhmanYylaraja(this.arvoRyhmanYmediaani());
-        this.setRyhmanXarvot(super.luoData(this.ryhmanXmediaani, 
-                super.random.nextInt(6) + 5));
-        this.setRyhmanYarvot(super.luoData(this.ryhmanYmediaani, 
-                super.random.nextInt(6) + 5));
+        this.setRyhmaXmediaani(this.arvoRyhmanXmediaani());
+        this.setRyhmaYmediaani(this.arvoRyhmanYmediaani());
+        this.setRyhmanXarvot(super.luoData(this.ryhmanXmediaani,
+                super.getRandom().nextInt(6) + 5));
+        this.setRyhmanYarvot(super.luoData(this.ryhmanYmediaani,
+                super.getRandom().nextInt(6) + 5));
         this.setHypoteesi(this.arvoHypoteesi());
         super.setOhje(this.setOhjeistus());
         if (this.hypoteesi.equals("X<Y") || this.hypoteesi.equals("X>Y")) {
@@ -56,79 +95,179 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
         super.testinValintaTehtava("Riippumattomien otosten t-testi");
         this.nollaHypoteesiTehtava();
         this.vaihtoehtoinenHypoteesiTehtava();
-        super.laskemisTehtava(this.t.t, 5, "Laske t-testisuureen arvo.");
+        super.laskemisTehtava(this.t.getT(), 5, "Laske t-testisuureen arvo.");
         this.pArvoTehtava();
     }
 
-    public String getRyhmienTyyppi() {
+    /**
+     * Palauttaa ryhmien tyypin selityksen.
+     *
+     * @return Merkkijono.
+     */
+    public final String getRyhmienTyyppi() {
         return ryhmienTyyppi;
     }
 
-    public String getRyhmaXnimi() {
+    /**
+     * Palauttaa ryhman X selitteen.
+     *
+     * @return Merkkijono.
+     */
+    public final String getRyhmaXnimi() {
         return ryhmaXnimi;
     }
 
-    public String getRyhmaYnimi() {
+    /**
+     * Palauttaa ryhman Y selitteen.
+     *
+     * @return Merkkijono.
+     */
+    public final String getRyhmaYnimi() {
         return ryhmaYnimi;
     }
 
-    public int getRyhmanXmediaani() {
+    /**
+     * Palauttaa ryhman X arvojen keskikohdan.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int getRyhmanXmediaani() {
         return ryhmanXmediaani;
     }
 
-    public int getRyhmanYmediaani() {
+    /**
+     * Palauttaa ryhman Y arvojen keskikohdan.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int getRyhmanYmediaani() {
         return ryhmanYmediaani;
     }
 
-    public String getHypoteesi() {
+    /**
+     * Palauttaa tehtävän hypoteesin.
+     *
+     * @return Merkkijono.
+     */
+    public final String getHypoteesi() {
         return hypoteesi;
     }
 
-    public ArrayList<Integer> getRyhmanXarvot() {
+    /**
+     * Palauttaa ryhmän X arvot.
+     *
+     * @return ArrayList kokonaislukulista.
+     */
+    public final ArrayList<Integer> getRyhmanXarvot() {
         return ryhmanXarvot;
     }
 
-    public ArrayList<Integer> getRyhmanYarvot() {
+    /**
+     * Palauttaa ryhmän Y arvot.
+     *
+     * @return ArrayList kokonaislukulista.
+     */
+    public final ArrayList<Integer> getRyhmanYarvot() {
         return ryhmanYarvot;
     }
-    
-    public void setMuuttuja(int muuttuja) {
-        this.muuttuja = muuttuja;
+
+    /**
+     * Palauttaa t-testin, jossa on tehtävän oikeat vastaukset.
+     *
+     * @return StudentinTTestiRiippumattomilleOtoksille - objekti.
+     */
+    public final StudentinTTestiRiippumattomilleOtoksille getT() {
+        return t;
     }
 
-    public void setRyhmienTyyppi(String ryhmienTyyppi) {
-        this.ryhmienTyyppi = ryhmienTyyppi;
+    /**
+     * Asettaa arvon muuttujan numerotunnisteelle.
+     *
+     * @param x Kokonaisluku.
+     */
+    public final void setMuuttuja(final int x) {
+        this.muuttuja = x;
     }
 
-    public void setRyhmaXnimi(String ryhmaXnimi) {
-        this.ryhmaXnimi = ryhmaXnimi;
+    /**
+     * Asettaa ryhmien tyypiin, esim. ammattiryhmat tai eri hoitoa saaneet
+     * potilaat.
+     *
+     * @param tyyppi Merkkijono.
+     */
+    public final void setRyhmienTyyppi(final String tyyppi) {
+        this.ryhmienTyyppi = tyyppi;
     }
 
-    public void setRyhmaYnimi(String ryhmaYnimi) {
-        this.ryhmaYnimi = ryhmaYnimi;
+    /**
+     * Asettaa ryhmälle X selitteen, esim. poliisit.
+     *
+     * @param nimi Merkkijono.
+     */
+    public final void setRyhmaXnimi(final String nimi) {
+        this.ryhmaXnimi = nimi;
     }
 
-    public void setHypoteesi(String hypoteesi) {
-        this.hypoteesi = hypoteesi;
+    /**
+     * Asettaa ryhmälle Y selitteen, esim. Suomi ensin -ryhmäläiset.
+     *
+     * @param nimi Merkkijono.
+     */
+    public final void setRyhmaYnimi(final String nimi) {
+        this.ryhmaYnimi = nimi;
     }
 
-    public void setRyhmanXylaraja(int ryhmanXmediaani) {
-        this.ryhmanXmediaani = ryhmanXmediaani;
+    /**
+     * Asettaa tehtävälle hypoteesi.
+     *
+     * @param hypoteesimme merkkijono
+     */
+    public final void setHypoteesi(final String hypoteesimme) {
+        this.hypoteesi = hypoteesimme;
     }
 
-    public void setRyhmanYylaraja(int ryhmanYmediaani) {
-        this.ryhmanYmediaani = ryhmanYmediaani;
+    /**
+     * Asettaa ryhman X arvoilelle keskikohdan.
+     *
+     * @param mediaani Kokonaisluku.
+     */
+    public final void setRyhmaXmediaani(final int mediaani) {
+        this.ryhmanXmediaani = mediaani;
     }
 
-    public void setRyhmanXarvot(ArrayList<Integer> ryhmanXarvot) {
-        this.ryhmanXarvot = ryhmanXarvot;
+    /**
+     * Asettaa ryhman X arvoilelle keskikohdan.
+     *
+     * @param mediaani Kokonaisluku.
+     */
+    public final void setRyhmaYmediaani(final int mediaani) {
+        this.ryhmanYmediaani = mediaani;
     }
 
-    public void setRyhmanYarvot(ArrayList<Integer> ryhmanYarvot) {
-        this.ryhmanYarvot = ryhmanYarvot;
+    /**
+     * Asettaa ryhmälle X arvoiksi kokonaislukulistan.
+     *
+     * @param arvot ArrayList, jossa kokonaislukuja.
+     */
+    public final void setRyhmanXarvot(final ArrayList<Integer> arvot) {
+        this.ryhmanXarvot = arvot;
     }
 
-    public String setOhjeistus() {
+    /**
+     * Asettaa ryhmälle Y arvoiksi kokonaislukulistan.
+     *
+     * @param arvot ArrayList, jossa kokonaislukuja.
+     */
+    public final void setRyhmanYarvot(final ArrayList<Integer> arvot) {
+        this.ryhmanYarvot = arvot;
+    }
+
+    /**
+     * Asettaa tehtävälle ohjeistuksen.
+     *
+     * @return Tehtävän Ohjeistus Merkkijonona.
+     */
+    public final String setOhjeistus() {
 
         String ohje1 = "Tutkimuksen kohteena olivat "
                 + this.ryhmaXnimi + " ja " + this.ryhmaYnimi + "."
@@ -136,7 +275,7 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
                 + "Molemmista ryhmistä kerättiin edustavat otokset.";
 
         String ohje2 = "Tutkija oli kiinnostunut ryhmien välisestä erosta "
-                + "muuttujan " + super.aiheetPerusmuoto()[this.muuttuja] 
+                + "muuttujan " + super.aiheetPerusmuoto()[this.muuttuja]
                 + " arvoissa."
                 + System.lineSeparator();
 
@@ -151,14 +290,14 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
 
         String ohje4 = "Muuttujalla " + super.aiheetPerusmuoto()[this.muuttuja]
                 + " on seuraavat arvot ryhmässä " + this.ryhmaXnimi + "."
-                + System.lineSeparator() 
+                + System.lineSeparator()
                 + this.vektoriMerkkiJonoksi(this.ryhmanXarvot)
                 + System.lineSeparator();
 
-        String ohje5 = "Muuttujalla  " 
+        String ohje5 = "Muuttujalla  "
                 + super.aiheetPerusmuoto()[this.muuttuja]
                 + " on seuraavat arvot ryhmässä " + this.ryhmaYnimi + "."
-                + System.lineSeparator() 
+                + System.lineSeparator()
                 + this.vektoriMerkkiJonoksi(this.ryhmanYarvot)
                 + System.lineSeparator();
 
@@ -166,15 +305,15 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
 
         if (this.hypoteesi.equals("X<Y")) {
             ohje6 = "Tutki onko ryhmän " + this.ryhmaXnimi
-                    + " keskiarvo pienempi kuin ryhmän " 
+                    + " keskiarvo pienempi kuin ryhmän "
                     + this.ryhmaYnimi + ".";
         } else if (this.hypoteesi.equals("X>Y")) {
             ohje6 = "Tutki onko ryhmän " + this.ryhmaXnimi
-                    + " keskiarvo suurempi kuin ryhmän " 
+                    + " keskiarvo suurempi kuin ryhmän "
                     + this.ryhmaYnimi + ".";
         } else if (this.hypoteesi.equals("X=/=Y")) {
             ohje6 = "Tutki eroaako ryhmän " + this.ryhmaXnimi
-                    + " keskiarvo ryhmän " + this.ryhmaYnimi 
+                    + " keskiarvo ryhmän " + this.ryhmaYnimi
                     + " keskiarvosta.";
         }
 
@@ -189,8 +328,13 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
 
     }
 
-    public String arvoRyhmienTyyppi() {
-        int x = random.nextInt(3);
+    /**
+     * Arpoo ryhmien tyypiksi merkkijonon.
+     *
+     * @return Merkkijono.
+     */
+    public final String arvoRyhmienTyyppi() {
+        int x = super.getRandom().nextInt(3);
         if (x == 0) {
             return "ika";
         } else if (x == 1) {
@@ -201,38 +345,50 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
         return "";
     }
 
-    public String arvoRyhmanXnimi() {
+    /**
+     * Arpoo ryhmalle x merkkijono selitteen, esim. kommunistit.
+     *
+     * @return Merkkijono.
+     */
+    public final String arvoRyhmanXnimi() {
         if (this.ryhmienTyyppi.equals("ika")) {
-            int x = random.nextInt(super.ikaRyhmia().length);
+            int x = super.getRandom().nextInt(super.ikaRyhmia().length);
             return super.ikaRyhmia()[x];
         } else if (this.ryhmienTyyppi.equals("ammatti")) {
-            int x = random.nextInt(super.ammatteja().length);
+            int x = super.getRandom().nextInt(super.ammatteja().length);
             return super.ammatteja()[x];
         } else if (this.ryhmienTyyppi.equals("supu")) {
-            int x = random.nextInt(super.sukupuolet().length);
+            int x = super.getRandom().nextInt(super.sukupuolet().length);
             return super.sukupuolet()[x];
         }
         return "";
     }
 
-    public String arvoRyhmanYnimi() {
+    /**
+     * Arpoo ryhmälle y merkkijono selitteen, joka ei ole sama kuin ryhmän x
+     * selite, esim. jos ryhma x kommunistit, ryhmä y on jotain muuta, esim.
+     * kapitalistit.
+     *
+     * @return Merkkijono.
+     */
+    public final String arvoRyhmanYnimi() {
         if (this.ryhmienTyyppi.equals("ika")) {
             while (true) {
-                int y = random.nextInt(super.ikaRyhmia().length);
+                int y = super.getRandom().nextInt(super.ikaRyhmia().length);
                 if (!super.ikaRyhmia()[y].equals(this.ryhmaXnimi)) {
                     return super.ikaRyhmia()[y];
                 }
             }
         } else if (this.ryhmienTyyppi.equals("ammatti")) {
             while (true) {
-                int y = random.nextInt(super.ammatteja().length);
+                int y = super.getRandom().nextInt(super.ammatteja().length);
                 if (!super.ammatteja()[y].equals(this.ryhmaXnimi)) {
                     return super.ammatteja()[y];
                 }
             }
         } else if (this.ryhmienTyyppi.equals("supu")) {
             while (true) {
-                int y = random.nextInt(super.sukupuolet().length);
+                int y = super.getRandom().nextInt(super.sukupuolet().length);
                 if (!super.sukupuolet()[y].equals(this.ryhmaXnimi)) {
                     return super.sukupuolet()[y];
                 }
@@ -241,29 +397,45 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
         return "";
     }
 
-    public int arvoRyhmanXmediaani() {
-        int x = (random.nextInt(10) + 1) * 5 + 50;
+    /**
+     * Arpoo ryhman X arvoille keskikohdan.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int arvoRyhmanXmediaani() {
+        int x = (super.getRandom().nextInt(10) + 1) * 5 + 50;
         return x;
     }
 
-    public int arvoRyhmanYmediaani() {
+    /**
+     * Arpoo ryhman Y arvoille keskikohdan.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int arvoRyhmanYmediaani() {
         int x = 0;
         while (true) {
-            x = random.nextInt(random.nextInt(10) + 1) * 5 + 50;
-            if (Math.abs(this.ryhmanXmediaani - x) <= 20  
+            x = super.getRandom().nextInt(super.getRandom().nextInt(10)
+                    + 1) * 5 + 50;
+            if (Math.abs(this.ryhmanXmediaani - x) <= 20
                     && x != this.ryhmanXmediaani) {
                 return x;
             }
         }
     }
 
-    public String arvoHypoteesi() {
+    /**
+     * Arpoo tehtävälle hypoteesin.
+     *
+     * @return merkkijono.
+     */
+    public final String arvoHypoteesi() {
 
         String h1 = "X<Y";
         String h2 = "X>Y";
         String h3 = "X=/=Y";
 
-        int x = random.nextInt(3);
+        int x = super.getRandom().nextInt(3);
 
         if (x == 0) {
             this.hypoteesi = h1;
@@ -277,7 +449,10 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
 
     }
 
-    public void nollaHypoteesiTehtava() {
+    /**
+     * Luo tehtävälle osatehtävän, jossa valitaan nollahypoteesi.
+     */
+    public final void nollaHypoteesiTehtava() {
         String vastaus1 = "1. Ryhmien keskiarvot eivät eroa toisistaan";
         String vastaus2 = "2. Ryhmän " + this.ryhmaXnimi
                 + " keskiarvo on suurempi kuin ryhmän " + this.ryhmaYnimi;
@@ -293,10 +468,13 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
                 + vastaus4 + System.lineSeparator();
 
         OsaTehtava tehtava = new OsaTehtava(1, tehtavanOhje);
-        super.osaTehtavat.add(tehtava);
+        super.getOsaTehtavat().add(tehtava);
     }
 
-    public void vaihtoehtoinenHypoteesiTehtava() {
+    /**
+     * Luo tehtävälle osatehtävän, jossa valitaan vastahypoteesi.
+     */
+    public final void vaihtoehtoinenHypoteesiTehtava() {
 
         String vastaus1 = "1. Ryhmien keskiarvot eivät eroa toisistaan";
         String vastaus2 = "2. Ryhmän " + this.ryhmaXnimi
@@ -323,33 +501,36 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
         }
 
         OsaTehtava tehtava = new OsaTehtava(vastaus, tehtavanOhje);
-        super.osaTehtavat.add(tehtava);
+        super.getOsaTehtavat().add(tehtava);
     }
 
-    public void pArvoTehtava() {
-        String ohje = "Määritä testisuureen p-arvo" 
+    /**
+     * Luo tehtävälle osatehtävän, jossa määritetään testisuureen p-arvo.
+     */
+    public final void pArvoTehtava() {
+        String ohje = "Määritä testisuureen p-arvo"
                 + System.lineSeparator()
-                + "1. Tulos ei ole tilastollisesti merkisevä" 
+                + "1. Tulos ei ole tilastollisesti merkisevä"
                 + System.lineSeparator()
-                + "2. p <0.05" 
+                + "2. p <0.05"
                 + System.lineSeparator()
-                + "3. p <0.01" 
+                + "3. p <0.01"
                 + System.lineSeparator()
-                + "4. p <0.001" 
+                + "4. p <0.001"
                 + System.lineSeparator();
 
         int vastaus = 0;
 
-        if (this.hypoteesi.equals("X<Y") && this.t.t >= 0) {
+        if (this.hypoteesi.equals("X<Y") && this.t.getT() >= 0) {
             vastaus = 1;
-        } else if (this.hypoteesi.equals("X>Y") && this.t.t <= 0) {
+        } else if (this.hypoteesi.equals("X>Y") && this.t.getT() <= 0) {
             vastaus = 1;
         } else {
-            if (this.t.pArvo.equals("ns")) {
+            if (this.t.getpArvo().equals("ns")) {
                 vastaus = 1;
-            } else if (this.t.pArvo.equals("p <0.05")) {
+            } else if (this.t.getpArvo().equals("p <0.05")) {
                 vastaus = 2;
-            } else if (this.t.pArvo.equals("p < 0.01")) {
+            } else if (this.t.getpArvo().equals("p < 0.01")) {
                 vastaus = 3;
             } else {
                 vastaus = 4;
@@ -357,7 +538,7 @@ public class RiippumattomienOtostenTTestiTehtava extends Tehtava {
         }
 
         OsaTehtava tehtava = new OsaTehtava(vastaus, ohje);
-        super.osaTehtavat.add(tehtava);
+        super.getOsaTehtavat().add(tehtava);
 
     }
 

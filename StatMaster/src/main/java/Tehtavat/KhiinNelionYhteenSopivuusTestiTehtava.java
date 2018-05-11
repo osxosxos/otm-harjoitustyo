@@ -1,6 +1,5 @@
 package Tehtavat;
 
-
 import TilastollisetTestit.KhiinNelionYhteenSopivuusTesti;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,13 +12,35 @@ import java.util.Collections;
  */
 public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
 
-    int n;
-    int[] havaitutFrekvenssit;
-    int[] teoreettisetFrekvenssit;
-    int riippumatonMuuttuja;
-    String asteikko[];
-    KhiinNelionYhteenSopivuusTesti khii;
+    /**
+     * Tehtävän aineiston koko.
+     */
+    private int n;
+    /**
+     * Havaittu data.
+     */
+    private int[] havaitutFrekvenssit;
+    /**
+     * Teoreettinen data, johon havaittua dataa verrataan.
+     */
+    private int[] teoreettisetFrekvenssit;
+    /**
+     * Muuttuja tai ilmiö, jonka arvoista ollaan kiinnostuneita.
+     */
+    private int riippumatonMuuttuja;
+    /**
+     * Muuttujan arvojen mitta-asteikko.
+     */
+    private String[] asteikko;
+    /**
+     * Testi, josta löytyy tehtävän oikeat ratkaisut.
+     */
+    private KhiinNelionYhteenSopivuusTesti khii;
 
+    /**
+     * Konstruktori asettaa tehtävän arvot aluksi tyhjiksi. Tehtävän
+     * luomismetodi antaa niille arvot.
+     */
     public KhiinNelionYhteenSopivuusTestiTehtava() {
         super();
         this.n = 0;
@@ -30,12 +51,17 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
         this.khii = new KhiinNelionYhteenSopivuusTesti();
     }
 
-    public void luoUusiTehtava() {
+    /**
+     * Luo uuden tehtävän - jonka aiheena on khiin neliön yhteensopivuustesti -
+     * ja sen osatehtävät.
+     */
+    public final void luoUusiTehtava() {
         this.setAsteikko(super.arvoAsteikkoVektori1());
         this.setN(this.arvoOtoksenKoko());
         this.setHavaitutFrekvenssit(this.luoData());
         this.setTeoreettisetFrekvenssit(this.luoData());
-        this.setRiippumatonMuuttuja(super.random.nextInt(super.aiheetPerusmuoto().length));
+        final int pituus = super.aiheetPerusmuoto().length;
+        this.setRiippumatonMuuttuja(super.getRandom().nextInt(pituus));
         this.khii.laske(havaitutFrekvenssit, teoreettisetFrekvenssit);
         this.setOhjeistus();
         super.testinValintaTehtava("Khiin neliön yhteensopivuustesti");
@@ -45,41 +71,114 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
         this.pArvoTehtava();
     }
 
-    public void setOhjeistus() {
-        String tehtavanOhje = "Tutkija oli kiinnostunut " + super.aiheetTaivutus2()[this.riippumatonMuuttuja];
+    /**
+     * Palauttaa aineiston koon.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int getN() {
+        return n;
+    }
+
+    /**
+     * Palauttaa havaitun aineiston.
+     *
+     * @return Kokonaisluku taulukko.
+     */
+    public final int[] getHavaitutFrekvenssit() {
+        return havaitutFrekvenssit;
+    }
+
+    /**
+     * Palauttaa teoreettisen aineiston, johon havaittua aineistoa verrataan.
+     *
+     * @return Kokonaisluku taulukko.
+     */
+    public final int[] getTeoreettisetFrekvenssit() {
+        return teoreettisetFrekvenssit;
+    }
+
+    /**
+     * Palautaa riippumattoman muuttujan, eli muuttujan jonka arvoista ollaan
+     * kiinnostuneita.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int getRiippumatonMuuttuja() {
+        return riippumatonMuuttuja;
+    }
+
+    /**
+     * Palauttaa riippumattoman muuttujan mitta-asteikon.
+     *
+     * @return Merkkijono taulukko.
+     */
+    public final String[] getAsteikko() {
+        return asteikko;
+    }
+
+    /**
+     * Palauttaa lasketun testin, josta löytyy tehtävän vastaukset.
+     *
+     * @return KhiinNelionYhteenSopivuusTesti.
+     */
+    public final KhiinNelionYhteenSopivuusTesti getKhii() {
+        return khii;
+    }
+
+    /**
+     * Asettaa tehtävälle ohjeistuksen, muuten sitä ei voi ratkaista.
+     */
+    public final void setOhjeistus() {
+        String tehtavanOhje = "Tutkija oli kiinnostunut "
+                + super.aiheetTaivutus2()[this.riippumatonMuuttuja];
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
-        tehtavanOhje = tehtavanOhje + "erisuuruisten arvojen jakautumisesta perusjoukossa.";
+        tehtavanOhje = tehtavanOhje
+                + "erisuuruisten arvojen jakautumisesta perusjoukossa.";
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
-        tehtavanOhje = tehtavanOhje + "Aikaisemmassa tutkimuksessa " + super.aiheetTaivutus2()[this.riippumatonMuuttuja];
+        tehtavanOhje = tehtavanOhje
+                + "Aikaisemmassa tutkimuksessa "
+                + super.aiheetTaivutus2()[this.riippumatonMuuttuja];
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
-        tehtavanOhje = tehtavanOhje + "arvoja mitattiin seuraavista arvoista koostuvalla asteikolla";
+        tehtavanOhje = tehtavanOhje
+                + "arvoja mitattiin seuraavista "
+                + "arvoista koostuvalla asteikolla";
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
         tehtavanOhje = tehtavanOhje + super.tulostaAsteikko(this.asteikko);
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
-        tehtavanOhje = tehtavanOhje + "Aikaisemmassa tutkimuksessa havainnot jakautuivat yllä "
+        tehtavanOhje = tehtavanOhje
+                + "Aikaisemmassa tutkimuksessa havainnot jakautuivat yllä "
                 + "esitettyihn luokkiin seuraavasti: ";
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
-        tehtavanOhje = tehtavanOhje + super.tulostaArvot(this.teoreettisetFrekvenssit);
+        tehtavanOhje = tehtavanOhje
+                + super.tulostaArvot(this.teoreettisetFrekvenssit);
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
-        tehtavanOhje = tehtavanOhje + "Uudessa tutkimuksessa käytettiin samaa luokittelua ja saatiin seuraava tulos:";
+        tehtavanOhje = tehtavanOhje
+                + "Uudessa tutkimuksessa käytettiin "
+                + "samaa luokittelua ja saatiin seuraava tulos:";
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
-        tehtavanOhje = tehtavanOhje + super.tulostaArvot(this.havaitutFrekvenssit);
+        tehtavanOhje = tehtavanOhje
+                + super.tulostaArvot(this.havaitutFrekvenssit);
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
         tehtavanOhje = tehtavanOhje + System.lineSeparator();
-        tehtavanOhje = tehtavanOhje + "Tutki poikkeavatko uudessa tutkimuksessa havaitut frekvenssit "
-                + "aikaisemmin havaituista.";
+        tehtavanOhje = tehtavanOhje
+                + "Tutki poikkeavatko uudessa tutkimuksessa "
+                + "havaitut frekvenssit aikaisemmin havaituista.";
         super.setOhje(tehtavanOhje);
     }
 
     /**
      * Luo osatehtävän, jossa määritetään testin nollahypoteesi.
      */
-    public void nollaHypoteesiTehtava() {
-        String vastaus1 = "A = 1: Havaitut ja odotetut frekvenssit eivät poikkea toisistaan.";
-        String vastaus2 = "B = 2: Havaitut ja odotetut frekvenssit poikkeavat toisistaan";
+    public final void nollaHypoteesiTehtava() {
+        String vastaus1
+                = "A = 1: Havaitut ja odotetut frekvenssit "
+                + "eivät poikkea toisistaan.";
+        String vastaus2 = "B = 2: Havaitut ja odotetut frekvenssit"
+                + " poikkeavat toisistaan";
 
         String tehtavanOhje = "Määritä tämän tehtävän nollahypoteesi."
                 + System.lineSeparator()
@@ -87,15 +186,19 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
                 + vastaus2 + System.lineSeparator();
 
         OsaTehtava tehtava = new OsaTehtava(1, tehtavanOhje);
-        super.osaTehtavat.add(tehtava);
+        super.getOsaTehtavat().add(tehtava);
     }
 
     /**
      * Luo osatehtävän, jossa määritetään testin vastahypoteesi.
      */
-    public void vastaHypoteesiTehtava() {
-        String vastaus1 = "A = 1: Havaitut ja odotetut frekvenssit eivät poikkea toisistaan.";
-        String vastaus2 = "B = 2: Havaitut ja odotetut frekvenssit poikkeavat toisistaan";
+    public final void vastaHypoteesiTehtava() {
+        String vastaus1
+                = "A = 1: Havaitut ja odotetut frekvenssit "
+                + "eivät poikkea toisistaan.";
+        String vastaus2
+                = "B = 2: Havaitut ja odotetut frekvenssit "
+                + "poikkeavat toisistaan";
 
         String tehtavanOhje = "Määritä tämän tehtävän vastahypoteesi."
                 + System.lineSeparator()
@@ -103,41 +206,50 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
                 + vastaus2 + System.lineSeparator();
 
         OsaTehtava tehtava = new OsaTehtava(2, tehtavanOhje);
-        super.osaTehtavat.add(tehtava);
+        super.getOsaTehtavat().add(tehtava);
     }
 
     /**
      * Luo osatehtävän, jossa lasketaan khiin neliö.
      */
-    public void khiinNelioTehtava() {
-        String[] kirjaimet = new String[]{"A = 1: ", "B = 2: ", "C = 3: ", "D = 4: "};
+    public final void khiinNelioTehtava() {
+        String[] kirjaimet
+                = new String[]{"A = 1: ", "B = 2: ", "C = 3: ", "D = 4: "};
         ArrayList<Double> vaihtoEhdot = new ArrayList();
 
-        vaihtoEhdot.add(this.khii.khiinNelio);
-        vaihtoEhdot.add(kaavat.pyoristaKahteenDesimaaliin(this.khii.khiinNelio - 10 * random.nextDouble()));
-        vaihtoEhdot.add(kaavat.pyoristaKahteenDesimaaliin(this.khii.khiinNelio + 10 * random.nextDouble()));
-        vaihtoEhdot.add(kaavat.pyoristaKahteenDesimaaliin(this.khii.khiinNelio - 10 * random.nextDouble()));
+        vaihtoEhdot.add(this.khii.getKhiinNelio());
+        vaihtoEhdot.add(super.getKaavat().pyoristaKahteenDesimaaliin(
+                this.khii.getKhiinNelio()
+                        - 10 * super.getRandom().nextDouble()));
+        vaihtoEhdot.add(super.getKaavat().pyoristaKahteenDesimaaliin(
+                this.khii.getKhiinNelio())
+                        + 10 * super.getRandom().nextDouble());
+        vaihtoEhdot.add(super.getKaavat().pyoristaKahteenDesimaaliin(
+                this.khii.getKhiinNelio()
+                        - 10 * super.getRandom().nextDouble()));
 
         Collections.shuffle(vaihtoEhdot);
         int oikeaVastaus = 1;
-        String tehtavanOhje = "Valitse annetuista vaihtoehdoista testisuureen arvo: ";
+        String tehtavanOhje
+                = "Valitse annetuista vaihtoehdoista testisuureen arvo: ";
 
         for (int i = 0; i < vaihtoEhdot.size(); i++) {
             tehtavanOhje = tehtavanOhje + System.lineSeparator();
             tehtavanOhje = tehtavanOhje + kirjaimet[i] + vaihtoEhdot.get(i);
-            if (vaihtoEhdot.get(i) == this.khii.khiinNelio) {
+            if (vaihtoEhdot.get(i) == this.khii.getKhiinNelio()) {
                 oikeaVastaus = oikeaVastaus + i;
             }
         }
         OsaTehtava tehtava = new OsaTehtava(oikeaVastaus, tehtavanOhje);
-        super.osaTehtavat.add(tehtava);
+        super.getOsaTehtavat().add(tehtava);
     }
 
     /**
      * Luo osatehtävän, jossa määritetään khiin neliön testin p-arvo.
      */
-    public void pArvoTehtava() {
-        String[] kirjaimet = new String[]{"A = 1: ", "B = 2: ", "C = 3: ", "D = 4: "};
+    public final void pArvoTehtava() {
+        String[] kirjaimet
+                = new String[]{"A = 1: ", "B = 2: ", "C = 3: ", "D = 4: "};
         ArrayList<String> vaihtoEhdot = new ArrayList();
 
         vaihtoEhdot.add("Tulos ei ole tilastollisesti merkitsevä");
@@ -146,45 +258,71 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
         vaihtoEhdot.add("p <0.001");
 
         int oikeaVastaus;
-        String tehtavanOhje = "Valitse annetuista vaihtoehdoista testisuureen p-arvo: ";
+        String tehtavanOhje
+                = "Valitse annetuista vaihtoehdoista testisuureen p-arvo: ";
 
         for (int i = 0; i < vaihtoEhdot.size(); i++) {
             tehtavanOhje = tehtavanOhje + System.lineSeparator();
             tehtavanOhje = tehtavanOhje + kirjaimet[i] + vaihtoEhdot.get(i);
         }
 
-        if (this.khii.pArvo.equals("ns")) {
+        if (this.khii.getpArvo().equals("ns")) {
             oikeaVastaus = 1;
-        } else if (this.khii.pArvo.equals("p <0.05")) {
+        } else if (this.khii.getpArvo().equals("p <0.05")) {
             oikeaVastaus = 2;
-        } else if (this.khii.pArvo.equals("p < 0.01")) {
+        } else if (this.khii.getpArvo().equals("p < 0.01")) {
             oikeaVastaus = 3;
         } else {
             oikeaVastaus = 4;
         }
 
         OsaTehtava tehtava = new OsaTehtava(oikeaVastaus, tehtavanOhje);
-        super.osaTehtavat.add(tehtava);
+        super.getOsaTehtavat().add(tehtava);
     }
 
-    public void setRiippumatonMuuttuja(int riippumatonMuuttuja) {
-        this.riippumatonMuuttuja = riippumatonMuuttuja;
+    /**
+     * Asettaa arvon riippumattomalle muuttujalle.
+     *
+     * @param muuttuja Kokonaisluku.
+     */
+    public final void setRiippumatonMuuttuja(final int muuttuja) {
+        this.riippumatonMuuttuja = muuttuja;
     }
 
-    public void setHavaitutFrekvenssit(int[] havaitutFrekvenssit) {
-        this.havaitutFrekvenssit = havaitutFrekvenssit;
+    /**
+     * Asettaa arvot havaituille frekvensseille.
+     *
+     * @param frekvenssit Kokonaislukutaulukko.
+     */
+    public final void setHavaitutFrekvenssit(final int[] frekvenssit) {
+        this.havaitutFrekvenssit = frekvenssit;
     }
 
-    public void setTeoreettisetFrekvenssit(int[] teoreettisetFrekvenssit) {
-        this.teoreettisetFrekvenssit = teoreettisetFrekvenssit;
+    /**
+     * Asettaa arvot teoreettisille frekvensseille.
+     *
+     * @param frekvenssit Kokonaislukutaulukko.
+     */
+    public final void setTeoreettisetFrekvenssit(final int[] frekvenssit) {
+        this.teoreettisetFrekvenssit = frekvenssit;
     }
 
-    public void setN(int n) {
-        this.n = n;
+    /**
+     * Asettaa arvon otoksen koolle.
+     *
+     * @param koko Kokonaisluku.
+     */
+    public final void setN(final int koko) {
+        this.n = koko;
     }
 
-    public void setAsteikko(String[] asteikko) {
-        this.asteikko = asteikko;
+    /**
+     * Asettaa tehtävän mitta-asteikon.
+     *
+     * @param mittaAsteikko Merkkijonotaulukko.
+     */
+    public final void setAsteikko(final String[] mittaAsteikko) {
+        this.asteikko = mittaAsteikko;
     }
 
     /**
@@ -192,8 +330,8 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
      *
      * @return Palauttaa kokonaislukumuuttujan.
      */
-    public int arvoOtoksenKoko() {
-        int otosKoko = 500 + random.nextInt(4501);
+    public final int arvoOtoksenKoko() {
+        int otosKoko = 500 + super.getRandom().nextInt(4501);
         return otosKoko;
     }
 
@@ -202,8 +340,8 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
      *
      * @return palauttaa kokonaislukutaulukon.
      */
-    public int[] luoData() {
-        int x = random.nextInt(2);
+    public final int[] luoData() {
+        int x = super.getRandom().nextInt(2);
 
         if (x == 0) {
             return this.luoSatunnainenNormaaliJakautunutData();
@@ -217,7 +355,7 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
      *
      * @return Palauttaa datan kokonaislukutauluna.
      */
-    public int[] luoSatunnainenData() {
+    public final int[] luoSatunnainenData() {
         int[] uusiData = new int[this.asteikko.length];
 
         while (true) {
@@ -228,7 +366,7 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
             if (summa == this.n) {
                 break;
             } else {
-                int x = random.nextInt(uusiData.length);
+                int x = super.getRandom().nextInt(uusiData.length);
                 uusiData[x]++;
             }
         }
@@ -240,7 +378,7 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
      *
      * @return Palauttaa kokonaislukutaulukon.
      */
-    public int[] luoSatunnainenNormaaliJakautunutData() {
+    public final int[] luoSatunnainenNormaaliJakautunutData() {
         int[] uusiData = new int[this.asteikko.length];
 
         if (this.asteikko.length == 2) {
@@ -252,7 +390,7 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
                 if (summa == this.n) {
                     break;
                 } else {
-                    int x = random.nextInt(2);
+                    int x = super.getRandom().nextInt(2);
                     uusiData[x]++;
                 }
             }
@@ -265,7 +403,7 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
                 if (summa == this.n) {
                     break;
                 } else {
-                    int x = random.nextInt(5);
+                    int x = super.getRandom().nextInt(5);
                     if (x == 0) {
                         uusiData[0]++;
                     } else if (x == 4) {
@@ -285,7 +423,7 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
                 if (summa == this.n) {
                     break;
                 } else {
-                    int x = random.nextInt(6);
+                    int x = super.getRandom().nextInt(6);
                     if (x == 0) {
                         uusiData[0]++;
                     } else if (x == 1 || x == 2) {
@@ -306,7 +444,7 @@ public class KhiinNelionYhteenSopivuusTestiTehtava extends Tehtava {
                 if (summa == this.n) {
                     break;
                 } else {
-                    int x = random.nextInt(10);
+                    int x = super.getRandom().nextInt(10);
                     if (x == 0) {
                         uusiData[0]++;
                     } else if (x == 1 || x == 2) {

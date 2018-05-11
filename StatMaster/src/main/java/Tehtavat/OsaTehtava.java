@@ -12,18 +12,38 @@ package Tehtavat;
  */
 public class OsaTehtava {
 
-    int vastaus;
-    String ohjeistus;
+    /**
+     * Osatehtävän vastaus kokonaislukuna.
+     */
+    private int vastaus;
+    /**
+     * Osatehtävän ohjeistus merkkijonona.
+     */
+    private String ohjeistus;
 
-    public OsaTehtava(int vastaus, String ohjeistus) {
-        this.vastaus = vastaus;
-        this.ohjeistus = ohjeistus;
+    /**
+     * Jokainen sovelluksen tehtävä koostuu useista osatehtävistä. Osatehtävillä
+     * on kaikilla uniikki ohjeistus ja yksi oikea vastaus. Vastaus on
+     * kokonaisluku, joka kuvaa oikean vaihtoehdon numeroa.
+     *
+     * @param oikeaVastaus Osatehtävän oikea vastaus kokonaislukuna.
+     * @param tehtavanOhjeistus Ohje osatehtävän suorittamiseen, joka sisältää
+     * vastausvaihtoehdot ja niiden numerot yhtenä merkkijonona.
+     */
+    public OsaTehtava(final int oikeaVastaus, final String tehtavanOhjeistus) {
+        this.vastaus = oikeaVastaus;
+        this.ohjeistus = tehtavanOhjeistus;
     }
 
-    public String getOhjeistus() {
+    /**
+     * Palauttaa osatehtävän ohjeen.
+     *
+     * @return Palauttaa merkkijonon.
+     */
+    public final String getOhjeistus() {
         return ohjeistus;
     }
-    
+
     /**
      * Suoritetaan osatehtävä, jos vastaus on oikein, palautetaan yksi piste,
      * jos vastaus on väärin, palautetaan nolla pistettä.
@@ -31,7 +51,7 @@ public class OsaTehtava {
      * @param annettuVastaus Tehtävän vastausvaihtoehto kokonaislukuna.
      * @return Palauttaa arvon yksi, jos tehtävä on oikein, muulloin nollan.
      */
-    public int suorita(int annettuVastaus) {
+    public final int suorita(final int annettuVastaus) {
         if (annettuVastaus == this.vastaus) {
             return 1;
         } else {

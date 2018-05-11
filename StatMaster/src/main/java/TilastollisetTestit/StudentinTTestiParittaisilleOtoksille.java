@@ -1,6 +1,5 @@
 package TilastollisetTestit;
 
-
 import ApuFunktiot.PerusLaskuKaavat;
 import Jakaumat.StudentinTJakauma;
 import java.util.ArrayList;
@@ -15,16 +14,48 @@ import java.util.ArrayList;
  */
 public class StudentinTTestiParittaisilleOtoksille {
 
-    PerusLaskuKaavat kaavat;
-    ArrayList<Integer> dataTilanne1;
-    ArrayList<Integer> dataTilanne2;
-    public double erotustenKa;
-    public double erotustenOtosKh;
-    public double t;
-    public int df;
-    public int suunta;
-    public String pArvo;
+    /**
+     * Laskukaavat, joita käytetään useissa eri testin vaiheissa.
+     */
+    private PerusLaskuKaavat kaavat;
+    /**
+     * ArrayList, jossa on arvot ennen kokeellista manipulaatiota.
+     */
+    private ArrayList<Integer> dataTilanne1;
+    /**
+     * ArrayList, jossa on arvot kokeellisen manipulaation jälkeen.
+     */
+    private ArrayList<Integer> dataTilanne2;
+    /**
+     * Erotusten keskiarvo.
+     */
+    private double erotustenKa;
+    /**
+     * Erotusten otoskeskihajonta.
+     */
+    private double erotustenOtosKh;
+    /**
+     * Erotusten keskiarvon t-arvo.
+     */
+    private double t;
+    /**
+     * Testin df-arvoa.
+     */
+    private int df;
+    /**
+     * Testin suunta.
+     */
+    private int suunta;
+    /**
+     * Testisuureen p-arvo.
+     */
+    private String pArvo;
 
+    /**
+     * Luo uuden luokan, jolla voidaan laskea parittaisten otosten t-testi.
+     * Aluksi luokka on tyhjä, luokan arvot muuttuvat laske -funktion kutsun
+     * seurauksena.
+     */
     public StudentinTTestiParittaisilleOtoksille() {
         this.kaavat = new PerusLaskuKaavat();
         this.dataTilanne1 = new ArrayList();
@@ -37,8 +68,16 @@ public class StudentinTTestiParittaisilleOtoksille {
         this.pArvo = "";
     }
 
-    public void laske(ArrayList<Integer> tilanne1, ArrayList<Integer> tilanne2, int suunta) {
-        this.suunta = suunta;
+    /**
+     * Laskee parittaisten otosten t-testin kahdelle parittaiselle otokselle.
+     *
+     * @param tilanne1 ArrayList, jossa arvot ennen tilanteesta.
+     * @param tilanne2 ArrayList, jossa arvot jälkeen tilanteesta.
+     * @param s Testin suunta.
+     */
+    public final void laske(final ArrayList<Integer> tilanne1,
+            final ArrayList<Integer> tilanne2, final int s) {
+        this.suunta = s;
         this.dataTilanne1 = tilanne1;
         this.dataTilanne2 = tilanne2;
         this.df = this.dataTilanne1.size() - 1;
@@ -48,7 +87,55 @@ public class StudentinTTestiParittaisilleOtoksille {
         this.pArvo();
     }
 
-    public void erotustenKeskiarvo() {
+    /**
+     * Palauttaa testin vapausasteet.
+     *
+     * @return Kokonaisluku.
+     */
+    public final int getDf() {
+        return df;
+    }
+
+    /**
+     * Palauttaa erotusten keskiarvon.
+     *
+     * @return Double.
+     */
+    public final double getErotustenKa() {
+        return erotustenKa;
+    }
+
+    /**
+     * Palauttaa erotusten otoskeskihajonnan.
+     *
+     * @return Double.
+     */
+    public final double getErotustenOtosKh() {
+        return erotustenOtosKh;
+    }
+
+    /**
+     * Palauttaa testisuureen t-arvon.
+     *
+     * @return Double.
+     */
+    public final double getT() {
+        return t;
+    }
+
+    /**
+     * Palauttaa testin p-arvon.
+     *
+     * @return Merkkijono.
+     */
+    public final String getpArvo() {
+        return pArvo;
+    }
+
+    /**
+     * Laskee erotusten keskiarvon.
+     */
+    public final void erotustenKeskiarvo() {
 
         int summa = 0;
 
@@ -64,7 +151,10 @@ public class StudentinTTestiParittaisilleOtoksille {
 
     }
 
-    public void erotustenOtosKeskihajonta() {
+    /**
+     * Laskee erotusten otoskeskihajonnan.
+     */
+    public final void erotustenOtosKeskihajonta() {
 
         double summa = 0;
 
@@ -81,12 +171,20 @@ public class StudentinTTestiParittaisilleOtoksille {
 
     }
 
-    public void tSuure() {
-        double tArvo = this.erotustenKa / (this.erotustenOtosKh / Math.sqrt(this.dataTilanne1.size()));
+    /**
+     * Laskee t-testisuureen.
+     */
+    public final void tSuure() {
+        double tArvo
+                = this.erotustenKa
+                / (this.erotustenOtosKh / Math.sqrt(this.dataTilanne1.size()));
         this.t = kaavat.pyoristaKahteenDesimaaliin(tArvo);
     }
 
-    public void pArvo() {
+    /**
+     * Määrittää testin p-arvon.
+     */
+    public final void pArvo() {
 
         StudentinTJakauma tJakauma = new StudentinTJakauma();
 

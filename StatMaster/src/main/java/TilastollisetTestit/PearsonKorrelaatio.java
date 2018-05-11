@@ -12,18 +12,55 @@ import java.util.ArrayList;
  */
 public class PearsonKorrelaatio {
 
-    PerusLaskuKaavat kaavat;
-    ArrayList<Integer> dataX;
-    ArrayList<Integer> dataY;
-    public double kaX;
-    public double kaY;
-    public double khX;
-    public double khY;
-    public double cov;
-    public double cor;
-    public double t;
-    public String pArvo;
+    /**
+     * Kaavat, joita tarvitaan korrelaation laskemiseen.
+     */
+    private PerusLaskuKaavat kaavat;
+    /**
+     * Muuttujan X arvot, jotka ovat ArrayList -muodossa.
+     */
+    private ArrayList<Integer> dataX;
+    /**
+     * Muuttujan Y arvot, jotka ovat ArrayList -muodossa.
+     */
+    private ArrayList<Integer> dataY;
+    /**
+     * Muuttujan X keskiarvo.
+     */
+    private double kaX;
+    /**
+     * Muuttujan Y keskiarvo.
+     */
+    private double kaY;
+    /**
+     * Muuttujan X otoskeskihajonta.
+     */
+    private double khX;
+    /**
+     * Muuttujan Y otoskeskihajonta.
+     */
+    private double khY;
+    /**
+     * Muuttujien X ja Y välinen kovarianssi.
+     */
+    private double cov;
+    /**
+     * Muuttujien X ja Y välinen korrelaatio.
+     */
+    private double cor;
+    /**
+     * Korrelaation muuttujien välinen t-arvo.
+     */
+    private double t;
+    /**
+     * T-arvon p-arvo.
+     */
+    private String pArvo;
 
+    /**
+     * Konstruktori asettaa kaikki arvot aluksi tyhjiksi. Vasta funktion laske
+     * kutsuminen antaa arvot näille muuttujille.
+     */
     public PearsonKorrelaatio() {
         this.kaavat = new PerusLaskuKaavat();
         this.dataX = new ArrayList();
@@ -41,12 +78,13 @@ public class PearsonKorrelaatio {
     /**
      * Laskee kaikki tarvittavat tunnusluvut, jotka luokassa on määritelty.
      *
-     * @param dataX Vektori, jossa on muuttujan X arvot.
-     * @param dataY Vektori, jossa on muuttujan Y arvot.
+     * @param x Vektori, jossa on muuttujan X arvot.
+     * @param y Vektori, jossa on muuttujan Y arvot.
      */
-    public void laske(ArrayList<Integer> dataX, ArrayList<Integer> dataY) {
-        this.dataX = dataX;
-        this.dataY = dataY;
+    public final void laske(final ArrayList<Integer> x,
+            final ArrayList<Integer> y) {
+        this.dataX = x;
+        this.dataY = y;
         this.kaX = kaavat.keskiarvo(this.dataX);
         this.kaY = kaavat.keskiarvo(this.dataY);
         this.khX = kaavat.otosKeskihajonta(this.dataX);
@@ -58,9 +96,45 @@ public class PearsonKorrelaatio {
     }
 
     /**
+     * Palauttaa muuttujien välisen kovarianssin.
+     *
+     * @return Double.
+     */
+    public final double getCov() {
+        return cov;
+    }
+
+    /**
+     * Palauttaa muuttujien välisen korrelaation.
+     *
+     * @return Double.
+     */
+    public final double getCor() {
+        return cor;
+    }
+
+    /**
+     * Palauttaa korrelaation t-arvon.
+     *
+     * @return Double.
+     */
+    public final double getT() {
+        return t;
+    }
+
+    /**
+     * Palauttaa t-arvon p-arvon.
+     *
+     * @return Merkkijono.
+     */
+    public final String getpArvo() {
+        return pArvo;
+    }
+
+    /**
      * Laskee muuttujan x ja y välisen otoskovarianssin.
      */
-    public void otosKovarianssi() {
+    public final void otosKovarianssi() {
 
         int jakaja = this.dataX.size() - 1;
         double summa = 0;
@@ -80,7 +154,7 @@ public class PearsonKorrelaatio {
     /**
      * Normittaa kovarianssin keskihajonnoilla.
      */
-    public void korrelaatio() {
+    public final void korrelaatio() {
         double corXY = this.cov / (this.khX * this.khY);
         this.cor = kaavat.pyoristaKahteenDesimaaliin(corXY);
     }
@@ -88,7 +162,7 @@ public class PearsonKorrelaatio {
     /**
      * Laskee korrelaation t-arvon tilastollisen merkitsevyyden ratkaisuun.
      */
-    public void tArvo() {
+    public final void tArvo() {
 
         int df = this.dataX.size() - 2;
         double selitys = Math.pow(this.cor, 2);
@@ -101,9 +175,9 @@ public class PearsonKorrelaatio {
     /**
      * Laskee korrelaation p-arvon.
      */
-    public void pArvo() {
-        StudentinTJakauma t = new StudentinTJakauma();
-        this.pArvo = t.kaksiSuuntainen(this.dataX.size() - 2, this.t);
+    public final void pArvo() {
+        StudentinTJakauma tee = new StudentinTJakauma();
+        this.pArvo = tee.kaksiSuuntainen(this.dataX.size() - 2, this.t);
     }
 
 }

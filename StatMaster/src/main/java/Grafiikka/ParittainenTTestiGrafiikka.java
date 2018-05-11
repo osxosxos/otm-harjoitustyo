@@ -1,4 +1,3 @@
-
 package Grafiikka;
 
 import Tehtavat.OsaTehtava;
@@ -15,22 +14,41 @@ import javafx.scene.layout.GridPane;
  */
 public class ParittainenTTestiGrafiikka {
 
-    int indeksi;
-    ParittaistenOtostenTTestiTehtava tehtava;
+    /**
+     * Indeksi kuvaa tehtävän osatehtävien numeroita.
+     */
+    private int indeksi;
+    /**
+     * Tehtävän tyyppi.
+     */
+    private ParittaistenOtostenTTestiTehtava tehtava;
 
+    /**
+     * Konstruktori asettaa indeksin alkaamaan nollasta, eli tehtävän
+     * ratkaiseminen alkaa ensimmäisestä osatehtävästä. Konstruktori tuo uuden
+     * tehtävän kutsuttaessa.
+     */
     public ParittainenTTestiGrafiikka() {
         this.indeksi = 0;
         this.tehtava = new ParittaistenOtostenTTestiTehtava();
         this.tehtava.luoUusiTehtava();
     }
 
-    public void kasvataIndeksia() {
+    /**
+     * Kasvattaa indeksiä, eli siirtyy seuraavaan osatehtävään.
+     */
+    public final void kasvataIndeksia() {
         if (this.indeksi < this.tehtava.getOsaTehtavat().size()) {
             this.indeksi++;
         }
     }
 
-    public Parent getNakyma() {
+    /**
+     * Graafinen käyttöliittymän pala osatehtävän ratkaisemiseksi.
+     *
+     * @return Palautaa GridPane -objektin.
+     */
+    public final Parent getNakyma() {
 
         GridPane asettelu = new GridPane();
 
@@ -42,7 +60,8 @@ public class ParittainenTTestiGrafiikka {
 
         ArrayList<OsaTehtava> osaTehtavat = tehtava.getOsaTehtavat();
 
-        OsaTehtavaVastausValikko valikko = new OsaTehtavaVastausValikko(osaTehtavat.get(indeksi));
+        OsaTehtavaVastausValikko valikko
+                = new OsaTehtavaVastausValikko(osaTehtavat.get(indeksi));
         Parent nakyma = valikko.getNakyma();
         asettelu.add(nakyma, 0, 1);
 
@@ -53,7 +72,8 @@ public class ParittainenTTestiGrafiikka {
             asettelu.getChildren().clear();
             asettelu.add(ohje, 0, 0);
 
-            OsaTehtavaVastausValikko uusi = new OsaTehtavaVastausValikko(osaTehtavat.get(indeksi));
+            OsaTehtavaVastausValikko uusi
+                    = new OsaTehtavaVastausValikko(osaTehtavat.get(indeksi));
             asettelu.add(uusi.getNakyma(), 0, 1);
 
             if (this.indeksi < osaTehtavat.size() - 1) {

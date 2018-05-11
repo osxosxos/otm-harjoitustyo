@@ -1,23 +1,37 @@
 package ApuFunktiot;
 
-
 import java.util.ArrayList;
 
 /**
  * Tässä luokassa on peruskaavoja, joita tarvitaan useissa eri laskuissa.
  *
- * @author Löllö
+ * @author Oskari Koskinen
  */
 public class PerusLaskuKaavat {
 
-    public double pyoristaKahteenDesimaaliin(double arvo) {
-        arvo = arvo * 100;
-        arvo = Math.round(arvo);
-        arvo = arvo / 100;
-        return arvo;
+    /**
+     * Pyöristää desimaaliluvun kahden desimaalin tarkkuuteen.
+     *
+     * @param arvo Pyöristettävä arvo double -muuttujana.
+     * @return Palauttaa syötetyn arvon kahden desimaalin tarkkuudella double
+     * -muuttujana.
+     */
+    public final double pyoristaKahteenDesimaaliin(final double arvo) {
+        final int kerroin = 100;
+        double kopio = arvo;
+        kopio = kopio * kerroin;
+        kopio = Math.round(kopio);
+        kopio = kopio / kerroin;
+        return kopio;
     }
 
-    public int summa(ArrayList<Integer> arvot) {
+    /**
+     * Laskee kokonaisluku listan lukujen summan.
+     *
+     * @param arvot ArrayList, jossa Integer -tyypin muuttujia.
+     * @return Palauttaa listan lukujen summan int -muuttujana.
+     */
+    public final int summa(final ArrayList<Integer> arvot) {
 
         int summa = 0;
 
@@ -28,12 +42,26 @@ public class PerusLaskuKaavat {
         return summa;
     }
 
-    public double keskiarvo(ArrayList<Integer> arvot) {
+    /**
+     * Laskee kokonaislukulistan lukujen keskiarvon.
+     *
+     * @param arvot ArrayList, jossa Integer -tyypin muuttujia.
+     * @return Palauttaa listan lukujen summa double muuttujana, joka on
+     * pyöristetty kahden desimaalin tarkkuuteen.
+     */
+    public final double keskiarvo(final ArrayList<Integer> arvot) {
         double summa = summa(arvot);
         return pyoristaKahteenDesimaaliin(summa / arvot.size());
     }
 
-    public double nelioSumma(ArrayList<Integer> arvot) {
+    /**
+     * Laskee kokonaislukulistan lukujen neliösumman.
+     *
+     * @param arvot ArrayList, jossa Integer -tyypin muuttujia.
+     * @return Palauttaa listan lukujen neliosumman double -muuttujana, joka on
+     * pyöristetty kahdeen desimaaliin.
+     */
+    public final double nelioSumma(final ArrayList<Integer> arvot) {
 
         double keskiarvo = keskiarvo(arvot);
         double summa = 0;
@@ -46,7 +74,14 @@ public class PerusLaskuKaavat {
 
     }
 
-    public double otosKeskihajonta(ArrayList<Integer> arvot) {
+    /**
+     * Laskee kokonaislukulistan lukujen keskihajonnan.
+     *
+     * @param arvot ArrayList, jossa Integer -tyypin muuttujia.
+     * @return Palauttaa listan lukujen otoskeskihajonnan double -muuttujana,
+     * joka on pyöristetty kahdeen desimaaliin.
+     */
+    public final double otosKeskihajonta(final ArrayList<Integer> arvot) {
         double summa = nelioSumma(arvot);
         summa = summa / (arvot.size() - 1);
         return pyoristaKahteenDesimaaliin(Math.sqrt(summa));
